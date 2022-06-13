@@ -4,10 +4,9 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
 
 [![Kotlin](https://img.shields.io/badge/Code-Kotlin-blueviolet)](https://kotlinlang.org/)
 [![Android](https://img.shields.io/badge/Code-Android-green)](https://developer.android.com/jetpack)
-[![LISENCE](https://img.shields.io/badge/Lisence-MIT-green)]()
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/Kotlin-Expert)
 
-![imagen](./images/logo.png)
+![imagen](./images/logo-grande-png.png)
 
 - [Kotlin Expert](#kotlin-expert)
   - [Acerca de](#acerca-de)
