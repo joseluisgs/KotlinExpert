@@ -1,7 +1,9 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -24,11 +26,11 @@ fun App() {
     // Se fija el estado inicial
     MaterialTheme {
         // Boton, al hacer click se cambia el texto
-        Column (
+        Column(
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxWidth()
-                .background(Color.Gray),
+                .background(Color.LightGray),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = {
@@ -51,7 +53,8 @@ fun App() {
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Hello Kotlin Expert") {
+        title = "Hello Kotlin Expert"
+    ) {
         // llama a la funcion composable App
         App()
     }
