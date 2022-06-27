@@ -15,12 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
-// Funcion composable inicial
+// Funcion composable inicial, todos las funciones compose deben tener esta anotacion para indicar que es una funcion composable y generar el código
 @Composable
 @Preview
 fun App() {
-    // Se crea una variable de estado
-    var text by remember { mutableStateOf("Hola, Mundo!") }
+    // Se crea una variable de estado, con remebeer recuerda el estado que ha tenido o modificado para la recomposición
+    var text by remember { mutableStateOf("Hola, Mundo!") } // by es un delegado
     var counter by remember { mutableStateOf(0) }
 
     // Se fija el estado inicial
@@ -35,9 +35,9 @@ fun App() {
         ) {
             Button(onClick = {
                 counter++
-                when {
-                    counter % 2 == 0 -> text = "Haz clic \uD83D\uDE80"
-                    else -> text = "Hola, Kotlin Expert \uD83D\uDC4B"
+                text = when {
+                    counter % 2 == 0 -> "Haz clic \uD83D\uDE80"
+                    else -> "Hola, Kotlin Expert \uD83D\uDC4B"
                 }
             }) {
                 // Texto del boton
