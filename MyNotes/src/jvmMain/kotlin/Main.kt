@@ -25,7 +25,6 @@ fun App() {
     var counter by remember { mutableStateOf(0) }
 
     var greeting by remember { mutableStateOf("") }
-    val message = "Hola, $greeting" // Se recalcula con el valor greeting
     val buttonIsEnable = greeting.isNotEmpty()
 
     // Se fija el estado inicial
@@ -59,7 +58,7 @@ fun App() {
                     greeting = it
                 }
             )
-            Text(message)
+            Text(buildMessage(greeting))
             Button(
                 onClick = {
                     greeting = ""
@@ -72,6 +71,8 @@ fun App() {
         }
     }
 }
+
+fun buildMessage(greeting: String) = "Hola, $greeting"
 
 // Funcion principal Creoa una ventana que al cerrar cierra la aplicacion
 fun main() = application {
