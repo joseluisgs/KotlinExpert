@@ -8,7 +8,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,14 +19,7 @@ import androidx.compose.ui.window.application
 // Funcion composable inicial, todos las funciones compose deben tener esta anotacion para indicar que es una funcion composable y generar el código
 @Composable
 @Preview
-fun App() {
-    // Se crea una variable de estado, con remebeer recuerda el estado que ha tenido o modificado para la recomposición
-    var text by remember { mutableStateOf("Hola, Mundo!") } // by es un delegado
-    var counter by remember { mutableStateOf(0) }
-
-    var greeting by remember { mutableStateOf("") }
-    val buttonIsEnable = greeting.isNotEmpty()
-
+fun App(appState: AppState) {
     // Se fija el estado inicial
     MaterialTheme {
         // Boton, al hacer click se cambia el texto
@@ -38,32 +31,32 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = {
-                counter++
-                text = when {
-                    counter % 2 == 0 -> "Haz clic \uD83D\uDE80"
+                appState.counter.value++
+                appState.text.value = when {
+                    appState.counter.value % 2 == 0 -> "Haz clic \uD83D\uDE80"
                     else -> "Hola, Kotlin Expert \uD83D\uDC4B"
                 }
             }) {
                 // Texto del boton
-                Text(text)
+                Text(appState.text.value)
             }
-            Text("Has hecho click $counter veces")
+            Text("Has hecho click ${appState.counter.value} veces")
 
 
             // Ejercio de Strint Template
             Text("String Template")
             TextField(
-                value = greeting,
+                value = appState.greeting.value,
                 onValueChange = {
-                    greeting = it
+                    appState.greeting.value = it
                 }
             )
-            Text(buildMessage(greeting))
+            Text(buildMessage(appState.greeting.value))
             Button(
                 onClick = {
-                    greeting = ""
+                    appState.greeting.value = ""
                 },
-                enabled = buttonIsEnable // Lo activamos cuando no existe
+                enabled = appState.buttonIsEnable // Lo activamos cuando no existe
             ) {
                 // Texto del boton
                 Text("Limpiar")
@@ -76,11 +69,13 @@ fun buildMessage(greeting: String) = "Hola, $greeting"
 
 // Funcion principal Creoa una ventana que al cerrar cierra la aplicacion
 fun main() = application {
+    // Creamos el estado central de la aplicacion
+    val appState = AppState()
     Window(
         onCloseRequest = ::exitApplication,
         title = "Hello Kotlin Expert"
     ) {
         // llama a la funcion composable App
-        App()
+        App(appState)
     }
 }
