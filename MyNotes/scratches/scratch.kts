@@ -40,3 +40,16 @@ a.nombre = "Pepe"
 a.edad = 20
 a.curso = "ASir"
 println("${a.nombre} tiene ${a.edad} años en el curso ${a.curso}")
+
+// Interfaces
+interface IsTenista {
+    fun play()
+}
+
+class Tenista(nombre: String, edad: Int= 20, val isZurdo: Boolean = false) : Persona(nombre, edad), IsTenista {
+    override fun play() {
+        println("Jugando Tenis con mi mano ${if (isZurdo) "zurda" else "zurda"}")
+    }
+}
+val tenista = Tenista("Juan", 18, true)
+tenista.play()
