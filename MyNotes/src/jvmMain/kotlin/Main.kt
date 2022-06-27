@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +23,10 @@ fun App() {
     // Se crea una variable de estado, con remebeer recuerda el estado que ha tenido o modificado para la recomposición
     var text by remember { mutableStateOf("Hola, Mundo!") } // by es un delegado
     var counter by remember { mutableStateOf(0) }
+
+    var greeting by remember { mutableStateOf("") }
+    val message = "Hola, $greeting" // Se recalcula con el valor greeting
+    val buttonIsEnable = greeting.isNotEmpty()
 
     // Se fija el estado inicial
     MaterialTheme {
@@ -45,6 +50,25 @@ fun App() {
             }
             Text("Has hecho click $counter veces")
 
+
+            // Ejercio de Strint Template
+            Text("String Template")
+            TextField(
+                value = greeting,
+                onValueChange = {
+                    greeting = it
+                }
+            )
+            Text(message)
+            Button(
+                onClick = {
+                    greeting = ""
+                },
+                enabled = buttonIsEnable // Lo activamos cuando no existe
+            ) {
+                // Texto del boton
+                Text("Limpiar")
+            }
         }
     }
 }
