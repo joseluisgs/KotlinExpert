@@ -10,7 +10,8 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
 
 - [Kotlin Expert](#kotlin-expert)
   - [Acerca de](#acerca-de)
-  - [Módulo 1: Conceptos básicos](#módulo-1-conceptos-básicos)
+  - [Módulo 1: Bienvenida](#módulo-1-bienvenida)
+  - [Módulo 2: Conceptos básicos de Kotlin](#módulo-2-conceptos-básicos-de-kotlin)
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Agradecimientos](#agradecimientos)
@@ -24,8 +25,13 @@ Desarrolladores/as backend, frontend, mobile, web… aprenderéis todo lo que ne
 
 ![imagen](./images/logo-grande-png.png)
 
-## Módulo 1: Conceptos básicos
-Veremos las bases del lenguaje Kotlin, desde cómo crear tu primer proyecto hasta cómo lanzar tu primer programa, pasando por el aprendizaje de los conceptos de cualquier lenguaje de programación: Variables, clases, interfaces, tipos, nulidad…
+## Módulo 1: Bienvenida
+Bienvenida. Instalación de los entornos de desarrollo. Un paseo por el curso
+
+## Módulo 2: Conceptos básicos de Kotlin
+Veremos las bases del lenguaje Kotlin, desde cómo crear tu primer proyecto hasta cómo lanzar tu primer programa, pasando por el aprendizaje de los conceptos de cualquier lenguaje de programación:
+
+Variables, clases, interfaces, tipos, nulidad, funciones, lambdas...
 
 
 ## Autor
