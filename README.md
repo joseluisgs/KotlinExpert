@@ -4,7 +4,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
 
 [![Kotlin](https://img.shields.io/badge/Code-Kotlin-blueviolet)](https://kotlinlang.org/)
 [![Android](https://img.shields.io/badge/Code-Android-green)](https://developer.android.com/jetpack)
-![GitHub](https://img.shields.io/github/last-commit/joseluisgs/Kotlin-Expert)
+![GitHub](https://img.shields.io/github/last-commit/joseluisgs/KotlinExpert)
 
 ![imagen](./images/logo-grande-png.png)
 
@@ -15,6 +15,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Autor](#autor)
     - [Contacto](#contacto)
   - [Agradecimientos](#agradecimientos)
+  - [Licencia](#licencia)
 
 ## Acerca de
 Los siguientes proyectos y ejemplos se corresponden a la formación Full Stack en el lenguaje Kotlin en la formación [Kotlin Expert](https://kotlinexpert.com/).
@@ -42,31 +43,38 @@ Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twi
 [![GitHub](https://img.shields.io/github/followers/joseluisgs?style=social)](https://github.com/joseluisgs)
 
 ### Contacto
-
 <p>
   Cualquier cosa que necesites házmelo saber por si puedo ayudarte 💬.
 </p>
 <p>
-    <a href="https://twitter.com/joseluisgonsan" target="_blank">
-        <img src="https://i.imgur.com/U4Uiaef.png" 
+ <a href="https://joseluisgs.github.io/" target="_blank">
+        <img src="https://joseluisgs.github.io/img/favicon.png" 
     height="30">
-    </a> &nbsp;&nbsp;
+    </a>  &nbsp;&nbsp;
     <a href="https://github.com/joseluisgs" target="_blank">
         <img src="https://distreau.com/github.svg" 
+    height="30">
+    </a> &nbsp;&nbsp;
+        <a href="https://twitter.com/joseluisgonsan" target="_blank">
+        <img src="https://i.imgur.com/U4Uiaef.png" 
     height="30">
     </a> &nbsp;&nbsp;
     <a href="https://www.linkedin.com/in/joseluisgonsan" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/768px-LinkedIn_logo_initials.png" 
     height="30">
     </a>  &nbsp;&nbsp;
-    <a href="https://joseluisgs.github.io/" target="_blank">
-        <img src="https://joseluisgs.github.io/favicon.png" 
+    <a href="https://discordapp.com/users/joseluisgs#3560" target="_blank">
+        <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-4-1.png" 
     height="30">
-    </a>
+    </a> &nbsp;&nbsp;
+    <a href="https://g.dev/joseluisgs" target="_blank">
+        <img loading="lazy" src="https://googlediscovery.com/wp-content/uploads/google-developers.png" 
+    height="30">
+    </a>    
 </p>
 
 ## Agradecimientos
 Formación Kotlin Expert Full Stack por [DevExperto Antonio Leiva ](https://devexperto.com/).
 
-Todo el código es original de esta formación salvo modificaciones y ampliaciones personales.
-Si tienes dudas, no dudes en cursarla, no te arrepentirás.
+## Licencia
+Todo el código es original y pertenece a [Kotlin Expert](https://kotlinexpert.com/) salvo modificaciones y ampliaciones personales. Si tienes dudas, no dudes en cursarla, no te arrepentirás.
