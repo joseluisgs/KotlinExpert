@@ -20,3 +20,11 @@ val titles = notes.filterNot { it.title.contains("4") }
     .sortedByDescending { it }
 
 println(titles)
+
+(0..10).map { "item $it" }
+(0..10 step 2).map { "item $it" }
+(10 downTo 0).map { "item $it"}
+(0 until 10).map { "item $it" }
+('a'.. 'g').map { "item $it" }
+
+0.7 in (0.0..1.0)
