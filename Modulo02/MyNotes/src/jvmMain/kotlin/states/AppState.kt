@@ -1,3 +1,5 @@
+package states
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import models.getNotes

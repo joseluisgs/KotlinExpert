@@ -29,6 +29,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 // Para iconos de la aplicación
                 implementation(compose.materialIconsExtended)
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
         val jvmTest by getting

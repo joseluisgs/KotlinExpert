@@ -18,10 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.PointerIconDefaults
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import models.Note
+import states.AppState
+import utils.dateParser
 
 // Funcion composable inicial, todos las funciones compose deben tener esta anotacion para indicar que es una funcion composable y generar el código
 // Recibe un estado general y global que hemos creado
@@ -29,7 +33,7 @@ import models.Note
 @Composable
 @Preview()
 fun App(
-    // appState: AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
+    // appState: states.AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
 ) {
     val appState = AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
     // Para mostrar el dialogo
@@ -93,6 +97,11 @@ fun App(
                         }
                         Spacer(modifier = Modifier.height(8.dp)) // Espacio entre componentes de la columna
                         Text(text = note.description) // Muestra el texto de la nota
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = note.getMoment(),
+                            style = MaterialTheme.typography.caption,
+                        ) // Muestra la fecha de la nota
                     }
 
                 }
@@ -106,11 +115,24 @@ fun App(
 fun main() = application {
     // Creamos el estado central de la aplicacion
     val appState = AppState
+
+    // Icono de la aplicacion
+    val icon = painterResource("app-icon.png")
+
+    // Pone un icono de Try
+    Tray(
+        icon = icon,
+        menu = {
+            Item("¿Salir de MyNotes?", onClick = ::exitApplication)
+        }
+    )
+    // Configuramos la ventana
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Hello Kotlin Expert"
+        title = "Hello Kotlin Expert",
+        icon = icon
     ) {
-        // llama a la función composable App con el estado central
+        // llama a la función composable App
         App()
     }
 }
@@ -126,6 +148,7 @@ fun NoteAlert(
 ) {
     if (showDialog) {
         AlertDialog(
+            modifier = Modifier.fillMaxWidth(0.5F),
             title = {
                 Text(note.title)
             },
@@ -134,6 +157,8 @@ fun NoteAlert(
                     Text(note.description)
                     Spacer(modifier = Modifier.height(8.dp))
                     NoteIcon(note.type)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(dateParser(note.createdAt))
                 }
             },
             onDismissRequest = onDismiss,
@@ -141,9 +166,9 @@ fun NoteAlert(
                 Button(onClick = onConfirm) {
                     Text("OK")
                 }
-            },
+            }
 
-            )
+        )
     }
 }
 
