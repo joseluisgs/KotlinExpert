@@ -1,6 +1,5 @@
 import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 // Inidicamos que es multiplataforma y compose
 plugins {
@@ -28,6 +27,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                // Para iconos de la aplicación
+                implementation(compose.materialIconsExtended)
             }
         }
         val jvmTest by getting
