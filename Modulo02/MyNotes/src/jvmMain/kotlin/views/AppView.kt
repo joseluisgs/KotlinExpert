@@ -31,15 +31,20 @@ private val logger = KotlinLogging.logger {}
 fun AppView(
     appState: AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
 ) {
-    // Para que no haga esto cada vez que actualice compose, se recomposed :)
-    LaunchedEffect(true) {
-        appState.loadNotes() // Carga las notas con el callback
-    }
     val notes = appState.state.notes // Obtengo las notas
+
+    // Para que no haga esto cada vez que actualice compose, se recomposed :)
+    if (notes == null) {
+        LaunchedEffect(true) {
+            appState.loadNotes() // Carga las notas con el callback
+        }
+    }
+
     // Estamos con el tipo material
     MaterialTheme {
         Box(
             contentAlignment = Alignment.Center, // Todo centrado
+            modifier = Modifier.fillMaxSize() // Todo el espacio disponible
         ) {
             // Progress bar
             // Cuando se recompknga si ha cambiado el estado no se pinta
@@ -49,8 +54,12 @@ fun AppView(
                     color = MaterialTheme.colors.primary
                 )
             }
+
             // Listas de notas
-            NotesList(notes)
+            if (notes != null) {
+                NotesList(notes)
+            }
+
         }
     }
 }
