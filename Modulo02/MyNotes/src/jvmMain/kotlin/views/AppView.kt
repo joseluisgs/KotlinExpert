@@ -34,7 +34,7 @@ fun AppView(
     val notes = appState.state.notes // Obtengo las notas
 
     // Para que no haga esto cada vez que actualice compose, se recomposed :)
-    if (notes == null) {
+    if (notes.isEmpty()) {
         LaunchedEffect(true) {
             appState.loadNotes() // Carga las notas con el callback
         }
@@ -56,7 +56,7 @@ fun AppView(
             }
 
             // Listas de notas
-            if (notes != null) {
+            if (notes.isNotEmpty()) {
                 NotesList(notes)
             }
 

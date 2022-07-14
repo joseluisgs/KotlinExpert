@@ -26,6 +26,6 @@ object AppState {
 
     data class UiState(
         val isLoading: Boolean = false,
-        val notes: List<Note>? = null // emptyList() // Prefiero el emty list
+        val notes: List<Note> = emptyList() // Prefiero el emty list
     )
 }
