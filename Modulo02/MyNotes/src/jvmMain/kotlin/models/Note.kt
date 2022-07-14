@@ -46,13 +46,19 @@ data class Note(
     }
 }
 
-fun getNotes() = (1..10).map {
-    Note(
-        title = "Title $it",
-        description = "Description $it",
-        type = if (it % 3 == 0) Note.Type.AUDIO else Note.Type.TEXT
-    )
-}.sortedByDescending { it.createdAt }
+// Vamos a usar un callback!! para que nos devuleva las notas
+fun getNotes(callback: (List<Note>) -> Unit) {
+    Thread.sleep(1000)
+    val notes = (1..10).map {
+        Note(
+            title = "Title $it",
+            description = "Description $it",
+            type = if (it % 3 == 0) Note.Type.AUDIO else Note.Type.TEXT
+        )
+    }.sortedByDescending { it.createdAt }
+    // la idea es que le pasamos un callback para que nos devuleva las notas
+    callback(notes)
+}
 
 
 // Coleccion de notas, no hay que ponerlas todas los tipos porque está por defecto
