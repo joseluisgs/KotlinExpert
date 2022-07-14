@@ -24,8 +24,11 @@ import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import models.Note
+import mu.KotlinLogging
 import states.AppState
 import utils.dateParser
+
+private val logger = KotlinLogging.logger {}
 
 // Funcion composable inicial, todos las funciones compose deben tener esta anotacion para indicar que es una funcion composable y generar el código
 // Recibe un estado general y global que hemos creado
@@ -36,9 +39,6 @@ fun App(
     // appState: states.AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
 ) {
     val appState = AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
-    // Para mostrar el dialogo
-    var showDialog by mutableStateOf(false)
-    var selectedNote by mutableStateOf<Note?>(null)
     // Estamos con el tipo material
     MaterialTheme {
         // Crea un listado de celdas a partir de una colección de datos pudiendo reutilizar el componente de celda es un RecyclerView
@@ -49,6 +49,11 @@ fun App(
         ) {
             // Recorre la colección de datos y creamos las celdas
             items(appState.notes) { note ->
+
+                // Para mostrar el dialogo
+                var showDialog by mutableStateOf(false)
+                var selectedNote by mutableStateOf<Note?>(null)
+
                 // Crea una celda con el item que recibe del tipo Card: https://devexperto.com/cards-jetpack-compose/
                 Card(
                     modifier = Modifier
@@ -60,6 +65,7 @@ fun App(
                         // Cuando hagamos click en la celda, se muestra el dialogo con la nota seleccionada
                         .clickable {
                             println("Has pulsado en la nota $note")
+                            logger.debug { "Has pulsado en la nota $note" }
                             showDialog = true
                             selectedNote = note
                         }

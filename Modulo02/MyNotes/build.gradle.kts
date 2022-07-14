@@ -30,6 +30,10 @@ kotlin {
                 // Para iconos de la aplicación
                 implementation(compose.materialIconsExtended)
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                // Logger
+                implementation("io.github.microutils:kotlin-logging:2.1.23")
+                // Salida del logger
+                implementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
             }
         }
         val jvmTest by getting
