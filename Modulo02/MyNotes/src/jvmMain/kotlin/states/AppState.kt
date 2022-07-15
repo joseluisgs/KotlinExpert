@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import models.Note
 import models.getNotes
 import mu.KotlinLogging
-import states.AppState.state
 import kotlin.concurrent.thread
 
 private val logger = KotlinLogging.logger {}
@@ -19,9 +18,9 @@ object AppState {
         //debemos hacerlo en un hilo aparte para no bloquear, hasta qu eveamos las corrutinas
         thread {
             logger.debug { "Cargando notas" }
-            state.update { UiState(isLoading = true) }
+            state = UiState(isLoading = true)
             // No es necesario ya que el is Loading es false
-            getNotes { state.update { UiState(notes = it, isLoading = false) } }
+            getNotes { state = UiState(notes = it, isLoading = false) }
             logger.debug { "Notas cargadas" }
         }
     }
@@ -32,6 +31,6 @@ object AppState {
     )
 }
 
-private fun AppState.UiState.update(function: () -> AppState.UiState) {
+/*private fun AppState.UiState.update(function: () -> AppState.UiState) {
     state = function()
-}
+}*/
