@@ -3,14 +3,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import states.AppState
 import views.AppView
 
 
 // Funcion principal Creoa una ventana que al cerrar cierra la aplicacion
 fun main() = application {
-    // Creamos el estado central de la aplicacion
-    val appState = AppState // Voy a usar el singleton mas abajo para asegurar una instancia unica
 
     // Icono de la aplicacion
     val icon = painterResource("app-icon.png")
@@ -29,6 +26,6 @@ fun main() = application {
         icon = icon
     ) {
         // llama a la función composable App
-        AppView(appState = appState)
+        AppView()
     }
 }

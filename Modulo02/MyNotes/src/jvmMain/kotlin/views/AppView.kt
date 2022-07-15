@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.PointerIconDefaults
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import models.Note
 import mu.KotlinLogging
@@ -28,15 +29,12 @@ private val logger = KotlinLogging.logger {}
 // Recibe un estado general y global que hemos creado
 @Composable
 @Preview()
-fun AppView(
-    appState: AppState // Si pongo parámetros no va, la vista, por lo que le paso el singleton
-) {
-    val notes = appState.state.notes // Obtengo las notas
+fun AppView(): Unit = with(AppState) {
 
     // Para que no haga esto cada vez que actualice compose, se recomposed :)
-    if (notes.isEmpty()) {
+    if (state.notes.isEmpty()) {
         LaunchedEffect(true) {
-            appState.loadNotes() // Carga las notas con el callback
+            loadNotes() // Carga las notas con el callback
         }
     }
 
@@ -48,7 +46,7 @@ fun AppView(
         ) {
             // Progress bar
             // Cuando se recompknga si ha cambiado el estado no se pinta
-            if (appState.state.isLoading) {
+            if (state.isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier.padding(16.dp),
                     color = MaterialTheme.colors.primary
@@ -56,8 +54,8 @@ fun AppView(
             }
 
             // Listas de notas
-            if (notes.isNotEmpty()) {
-                NotesList(notes)
+            if (state.notes.isNotEmpty()) {
+                NotesList(state.notes)
             }
 
         }
@@ -114,9 +112,10 @@ private fun NotesList(notes: List<Note>) {
                     Row {
                         // Mostramos el título de la nota
                         Text(
-                            text = note.title,
+                            text = note.title, modifier = Modifier.weight(1f), color = MaterialTheme.colors.primary,
                             style = MaterialTheme.typography.h6, // Estilo de texto h6
-                            modifier = Modifier.weight(1f) // Que ocupe el 100% del ancho de la fila y empuja al resto
+                            // Que ocupe el 100% del ancho de la fila y empuja al resto
+                            fontWeight = FontWeight.Bold
                         )
                         // Muestra el icono de micrófono solo si la nota es de deese tipo
 //                            if (note.type == Note.Type.AUDIO) {
@@ -155,7 +154,11 @@ fun NoteAlert(
         AlertDialog(
             modifier = Modifier.fillMaxWidth(0.5F),
             title = {
-                Text(note.title)
+                Text(
+                    text = note.title,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.primary,
+                )
             },
             text = {
                 Column { // Column es una lista de elementos en una fila
