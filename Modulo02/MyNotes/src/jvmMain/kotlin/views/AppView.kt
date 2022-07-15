@@ -32,7 +32,7 @@ private val logger = KotlinLogging.logger {}
 fun AppView(): Unit = with(AppState) {
 
     // Para que no haga esto cada vez que actualice compose, se recomposed :)
-    if (state.notes.isEmpty()) {
+    if (state.notes == null) {
         LaunchedEffect(true) {
             loadNotes() // Carga las notas con el callback
         }
@@ -54,8 +54,8 @@ fun AppView(): Unit = with(AppState) {
             }
 
             // Listas de notas
-            if (state.notes.isNotEmpty()) {
-                NotesList(state.notes)
+            state.notes?.let {
+                NotesList(it)
             }
 
         }
