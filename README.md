@@ -5,7 +5,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
 [![Kotlin](https://img.shields.io/badge/Code-Kotlin-blueviolet)](https://kotlinlang.org/)
 [![Android](https://img.shields.io/badge/Code-Android-green)](https://developer.android.com/jetpack)
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/KotlinExpert)
-
+[![LICENSE](https://img.shields.io/badge/Lisence-CC-%23e64545)](https://joseluisgs.github.io/docs/license/)
 ![imagen](./images/logo-grande-png.png)
 
 - [Kotlin Expert](#kotlin-expert)
@@ -78,3 +78,7 @@ Formación Kotlin Expert Full Stack por [DevExperto Antonio Leiva ](https://deve
 
 ## Licencia
 Todo el código es original y pertenece a [Kotlin Expert](https://kotlinexpert.com/) salvo modificaciones y ampliaciones personales. Si tienes dudas, no dudes en cursarla, no te arrepentirás.
+
+Este repositorio y todo su contenido está licenciado bajo licencia **Creative Commons**, si desea saber más, vea la [LICENSE](https://joseluisgs.github.io/docs/license/). Por favor si compartes, usas o modificas este proyecto cita a su autor, y usa las mismas condiciones para su uso docente, formativo o educativo y no comercial siempre preguntando a [Kotlin Expert](https://kotlinexpert.com/).
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">JoseLuisGS</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://joseluisgs.github.io/" property="cc:attributionName" rel="cc:attributionURL">José Luis González Sánchez</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional License</a>.<br />Creado a partir de la obra en <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/joseluisgs" rel="dct:source">https://github.com/joseluisgs</a>.
