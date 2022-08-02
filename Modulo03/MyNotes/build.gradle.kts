@@ -34,6 +34,8 @@ kotlin {
                 implementation("io.github.microutils:kotlin-logging:2.1.23")
                 // Salida del logger
                 implementation("ch.qos.logback:logback-classic:1.3.0-alpha16")
+                // Corrutinas
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.3")
             }
         }
         val jvmTest by getting

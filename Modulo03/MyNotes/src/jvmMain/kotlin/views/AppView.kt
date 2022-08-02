@@ -33,8 +33,14 @@ fun AppView(): Unit = with(AppState) {
 
     // Para que no haga esto cada vez que actualice compose, se recomposed :)
     if (state.notes == null) {
+        // Usamos lauch effect para evitar que se repinten continuamente cuando se reconponga, e spor ello, que solo se pinta si le decimos que ha cambiado (true)
+        // y por lo tanto se ejecuta el código de nuevo
+        // LaunchEffect ya genera un contexto de corrutinas...
+        // tambien podemos conseguir un contexto de corrutinas con
+        // val scope = rememberCoroutineScope()
+        // Pero no nos hace falta
         LaunchedEffect(true) {
-            loadNotes() // Carga las notas con el callback
+            loadNotes(this) // Carga las notas con currutinas
         }
     }
 
@@ -189,6 +195,7 @@ fun NoteIcon(type: Note.Type) {
                 contentDescription = "not de texto"
             )
         }
+
         Note.Type.AUDIO -> {
             Icon(
                 imageVector = Icons.Default.Mic,

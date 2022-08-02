@@ -3,10 +3,11 @@ package states
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import models.Note
 import models.getNotes
 import mu.KotlinLogging
-import kotlin.concurrent.thread
 
 private val logger = KotlinLogging.logger {}
 
@@ -14,15 +15,18 @@ private val logger = KotlinLogging.logger {}
 object AppState {
     var state by mutableStateOf(UiState())
 
-    fun loadNotes() {
+    // Dos posibilidades, o nos creamos aquñi un scope  de corrutinas para consumilar o transformarla en suspend
+    suspend fun loadNotes(coroutineScope: CoroutineScope) {
         //debemos hacerlo en un hilo aparte para no bloquear, hasta qu eveamos las corrutinas
-        thread {
+
+        coroutineScope.launch {
             logger.debug { "Cargando notas" }
             state = UiState(isLoading = true)
-            // No es necesario ya que el is Loading es false
-            getNotes { state = UiState(notes = it, isLoading = false) }
+            state = UiState(notes = getNotes(), isLoading = false)
             logger.debug { "Notas cargadas" }
         }
+
+
     }
 
     data class UiState(

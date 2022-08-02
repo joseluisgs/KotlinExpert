@@ -7,10 +7,9 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
 
 
-fun dateParser(date: Instant = Clock.System.now(), locale: Locale = Locale.getDefault()): String {
+fun dateParser(date: Instant = Clock.System.now()): String {
     val ldt = LocalDateTime.ofInstant(date.toJavaInstant(), ZoneId.systemDefault())
     val dtf = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.MEDIUM)
     return dtf.format(ldt)
