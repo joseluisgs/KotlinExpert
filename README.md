@@ -12,8 +12,10 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Acerca de](#acerca-de)
   - [Módulo 1: Bienvenida](#módulo-1-bienvenida)
   - [Módulo 2: Conceptos básicos de Kotlin](#módulo-2-conceptos-básicos-de-kotlin)
+  - [Modulo 3: Concurrencia en Kotlin con Coroutines](#modulo-3-concurrencia-en-kotlin-con-coroutines)
   - [Autor](#autor)
     - [Contacto](#contacto)
+    - [¿Un café?](#un-café)
   - [Agradecimientos](#agradecimientos)
   - [Licencia](#licencia)
 
@@ -34,6 +36,8 @@ Veremos las bases del lenguaje Kotlin, desde cómo crear tu primer proyecto hast
 
 Variables, clases, interfaces, tipos, nulidad, funciones, lambdas...
 
+## Modulo 3: Concurrencia en Kotlin con Coroutines
+Usaremos el uso de las corrutinas para el manejo de la concurrencia y con ello: funciones suspend, context, dispachers, scope. También usaremos secuencias, canales y flujos.
 
 ## Autor
 
