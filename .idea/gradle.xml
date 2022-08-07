@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Extras/InitCorrutinas" />
+        <option name="gradleJvm" value="Liberica 17 LTS Full" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Extras/InitCorrutinas" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Modulo02/MyNotes" />
+        <option name="gradleJvm" value="Liberica 17 LTS Full" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Modulo02/MyNotes" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Modulo03/MyNotes" />
+        <option name="gradleJvm" value="Liberica 17 LTS Full" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Modulo03/MyNotes" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
