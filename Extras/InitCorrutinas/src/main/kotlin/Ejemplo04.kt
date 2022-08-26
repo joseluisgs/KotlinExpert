@@ -14,6 +14,8 @@ Existen 2 variantes, StateFlow, que es inmutable (no se puede modificar value, y
 En general, StateFlow sirve para almacenar un estado, y que los cambios en ese estado puedan ser escuchados de forma reactiva.
 
 ¿Te suena esto de algo? Es exactamente la definición de LiveData, pero aplicado a los Flows.
+
+https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/
  */
 
 data class Note(
