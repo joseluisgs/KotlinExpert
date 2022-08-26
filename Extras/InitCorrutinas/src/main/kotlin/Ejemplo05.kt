@@ -2,6 +2,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -24,8 +25,12 @@ https://medium.com/kotlin-en-android/flujos-de-datos-con-sharedflow-e765acc506da
 // Vamos a hacerlo reactivo
 class ViewModel2 {
     // Para que no se pueda mutar desde fuera
+    /*private var _state =
+        MutableSharedFlow<Note>(replay = 3, extraBufferCapacity = 3, onBufferOverflow = BufferOverflow.DROP_OLDEST)*/
+
+    // Si queremos que se comporte como un stateFlow
     private var _state =
-        MutableSharedFlow<Note>(replay = 3, extraBufferCapacity = 3, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        MutableSharedFlow<Note>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
     // Creamos una bakcing properties https://kotlinlang.org/docs/properties.html#late-initialized-properties-and-variables
     val state = _state.asSharedFlow()
@@ -34,8 +39,8 @@ class ViewModel2 {
         var count = 1
         while (true) {
             delay(500)
-            _state.emit(Note(title = "Title $count", description = "Description $count"))
-            println("Emitiendo: Title $count")
+            _state.emit(Note(title = "Title 1", description = "Description 1"))
+            println("Emitiendo: Title 1")
             count++
         }
     }
@@ -48,7 +53,8 @@ fun main(): Unit = runBlocking {
 
     }
     delay(2100) // Si me espero, pues perdemos datos, el primero!!!
-    viewModel.state.collect {
+    // si son iguales no debería consumir repetidos!!!
+    viewModel.state.distinctUntilChanged().collect() {
         delay(1000)
         println("Recolectando: $it")
     }
