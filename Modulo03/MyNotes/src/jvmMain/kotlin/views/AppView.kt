@@ -31,18 +31,20 @@ private val logger = KotlinLogging.logger {}
 @Preview()
 fun AppView(): Unit = with(AppState) {
 
-    // Para que no haga esto cada vez que actualice compose, se recomposed :)
-    if (state.notes == null) {
-        // Usamos lauch effect para evitar que se repinten continuamente cuando se reconponga, e spor ello, que solo se pinta si le decimos que ha cambiado (true)
-        // y por lo tanto se ejecuta el código de nuevo
-        // LaunchEffect ya genera un contexto de corrutinas...
-        // tambien podemos conseguir un contexto de corrutinas con
-        // val scope = rememberCoroutineScope()
-        // Pero no nos hace falta
-        LaunchedEffect(true) {
-            loadNotes(this) // Carga las notas con currutinas
-        }
+    // Recogemos el flow, como podemos acceder al state porque estamos haciendo un with!
+    // Lo trasformamos de flow a state de compose
+    val state by state.collectAsState()
+
+    // Usamos lauch effect para evitar que se repinten continuamente cuando se reconponga, e spor ello, que solo se pinta si le decimos que ha cambiado (true)
+    // y por lo tanto se ejecuta el código de nuevo
+    // LaunchEffect ya genera un contexto de corrutinas...
+    // tambien podemos conseguir un contexto de corrutinas con
+    // val scope = rememberCoroutineScope()
+    // Pero no nos hace falta
+    LaunchedEffect(true) {
+        loadNotes(this) // Carga las notas con currutinas
     }
+
 
     // Estamos con el tipo material
     MaterialTheme {
