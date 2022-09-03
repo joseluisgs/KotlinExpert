@@ -24,7 +24,14 @@ object AppState {
         coroutineScope.launch(CoroutineName("Corrutina loadNotes ")) {
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
             _state.value = UiState(isLoading = true)
-            _state.value = UiState(notes = getNotes(), isLoading = false)
+            var notes = emptyList<Note>()
+            getNotes().collect { note ->
+                logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo Nota ${note.title}" }
+                // cada vez que recibimos un valor se lo sumamos a la lista original
+                notes = notes + note
+                // Actualizamos la interfaz
+                _state.value = UiState(notes = notes, isLoading = false)
+            }
             logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
         }
 
