@@ -1,10 +1,9 @@
 package states
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import models.Note
 import mu.KotlinLogging
@@ -14,7 +13,9 @@ private val logger = KotlinLogging.logger {}
 
 // Y si lo pongo como object tendría un singleton
 object AppState {
-    var state by mutableStateOf(UiState())
+    // Estados privados mutables, públicos inmutables. Paso a Flow
+    private val _state = MutableStateFlow(UiState())
+    val state = _state.asStateFlow()
 
     // Dos posibilidades, o nos creamos aquñi un scope  de corrutinas para consumilar o transformarla en suspend
     suspend fun loadNotes(coroutineScope: CoroutineScope) {
@@ -22,8 +23,8 @@ object AppState {
 
         coroutineScope.launch(CoroutineName("Corrutina loadNotes ")) {
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
-            state = UiState(isLoading = true)
-            state = UiState(notes = getNotes(), isLoading = false)
+            _state.value = UiState(isLoading = true)
+            _state.value = UiState(notes = getNotes(), isLoading = false)
             logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
         }
 
