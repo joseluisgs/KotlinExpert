@@ -1,6 +1,5 @@
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -14,15 +13,18 @@ Lo podemos cambiar con Capacity
 
 class ViewModelChannel {
     private var _state = Channel<Note>(capacity = 3)
-    val state = _state.receiveAsFlow() // asi se verá como un flow
+    val state = _state //.receiveAsFlow() // asi se verá como un flow
 
     suspend fun update() {
         var count = 1
-        while (true) {
+        while (!_state.isClosedForSend) {
             delay(500)
             count++
             println("Emitiendo: Title $count")
             _state.send(Note(title = "Title $count", description = "Description $count"))
+            if (count > 6) {
+                _state.close()
+            }
         }
     }
 }
@@ -33,8 +35,12 @@ fun main(): Unit = runBlocking {
         viewModel.update()
 
     }
-    viewModel.state.collect {
+    for (state in viewModel.state) {
         delay(1000)
-        println("Recolectando: $it")
+        println("Recolectando: $state")
     }
+//    viewModel.state.collect {
+//        delay(1000)
+//        println("Recolectando: $it")
+//    }
 }
