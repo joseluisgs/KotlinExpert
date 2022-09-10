@@ -9,15 +9,16 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
 ![imagen](./images/logo-grande-png.png)
 
 - [Kotlin Expert](#kotlin-expert)
-    - [Acerca de](#acerca-de)
-    - [Módulo 1: Bienvenida](#módulo-1-bienvenida)
-    - [Módulo 2: Conceptos básicos de Kotlin](#módulo-2-conceptos-básicos-de-kotlin)
-    - [Modulo 3: Concurrencia en Kotlin con Coroutines](#modulo-3-concurrencia-en-kotlin-con-coroutines)
-    - [Autor](#autor)
-        - [Contacto](#contacto)
-        - [¿Un café?](#un-café)
-    - [Agradecimientos](#agradecimientos)
-    - [Licencia](#licencia)
+  - [Acerca de](#acerca-de)
+  - [Módulo 1: Bienvenida](#módulo-1-bienvenida)
+  - [Módulo 2: Conceptos básicos de Kotlin](#módulo-2-conceptos-básicos-de-kotlin)
+  - [Módulo 3: Concurrencia en Kotlin con Coroutines](#módulo-3-concurrencia-en-kotlin-con-coroutines)
+  - [Módulo 4: Kotlin avanzando](#módulo-4-kotlin-avanzando)
+  - [Autor](#autor)
+    - [Contacto](#contacto)
+    - [¿Un café?](#un-café)
+  - [Agradecimientos](#agradecimientos)
+  - [Licencia](#licencia)
 
 ## Acerca de
 
@@ -43,10 +44,13 @@ por el aprendizaje de los conceptos de cualquier lenguaje de programación:
 
 Variables, clases, interfaces, tipos, nulidad, funciones, lambdas...
 
-## Modulo 3: Concurrencia en Kotlin con Coroutines
+## Módulo 3: Concurrencia en Kotlin con Coroutines
 
-Usaremos el uso de las corrutinas para el manejo de la concurrencia y con ello: funciones suspend, context, dispachers,
-scope. También usaremos secuencias, canales y flujos.
+Usaremos el uso de las corrutinas para el manejo de la concurrencia y con ello: funciones suspend, context, dispachers,scope. También usaremos secuencias, canales y flujos.
+
+## Módulo 4: Kotlin avanzando
+
+En este módulo veremos aspectos avanzados o más específicos de Kotlin a nivel de lenguaje y expresividad como son funciones infijas, locales, sobrecarga de operadores, tipos avanzados, genéricos, varianza, lambdas con receivers, scope functions, import alias o type alias... 
 
 ## Autor
 
