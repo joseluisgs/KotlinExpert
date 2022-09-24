@@ -36,30 +36,23 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
             contentDescription = "Filter notes"
         )
 
+
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = !expanded }
         ) {
-            // Cada elemento del menú
-            DropdownMenuItem(onClick = {
-                expanded = !expanded
-                onFilterClick(Filter.All)
-            }) {
-                Text("All")
-            }
-            DropdownMenuItem(onClick = {
-                expanded = !expanded
-                onFilterClick(Filter.ByType(Note.Type.TEXT))
-            }) {
-                Text("Text")
-
-            }
-            DropdownMenuItem(onClick = {
-                expanded = !expanded
-                onFilterClick(Filter.ByType(Note.Type.AUDIO))
-            }) {
-                Text("Audio")
-
+            // Para simplifcar el código usamo pares
+            listOf(
+                Filter.All to "All",
+                Filter.ByType(Note.Type.TEXT) to "Text",
+                Filter.ByType(Note.Type.AUDIO) to "Audio",
+            ).forEach { (filter, text) ->
+                DropdownMenuItem(onClick = {
+                    onFilterClick(filter)
+                    expanded = false
+                }) {
+                    Text(text)
+                }
             }
         }
     }
