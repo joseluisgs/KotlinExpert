@@ -33,7 +33,8 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
 
     // Vamos a crear una función local paar practicar
     // ademas infija
-    @Composable
+    // Es un poco loco, por eso lo deshacemos
+    /*@Composable
     infix fun Filter.toMenuItem(label: String) {
         DropdownMenuItem(onClick = {
             expanded = false
@@ -41,7 +42,7 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
         }) {
             Text(label)
         }
-    }
+    }*/
 
     IconButton(onClick = { expanded = !expanded }) {
         Icon(
@@ -54,13 +55,12 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
             expanded = expanded,
             onDismissRequest = { expanded = !expanded }
         ) {
-            // Usamos nuestra nueva función local infija
+            /*// Usamos nuestra nueva función local infija
             Filter.All toMenuItem "All"
             Filter.ByType(Note.Type.TEXT) toMenuItem "Text"
-            Filter.ByType(Note.Type.AUDIO) toMenuItem "Audio"
+            Filter.ByType(Note.Type.AUDIO) toMenuItem "Audio"*/
 
             // Para simplifcar el código usamo pares
-            /*
             listOf(
                 Filter.All to "All",
                 Filter.ByType(Note.Type.TEXT) to "Text",
@@ -73,7 +73,6 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
                     Text(text)
                 }
             }
-            */
         }
     }
 }
