@@ -4,7 +4,9 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import models.Filter
 import models.Note
 import mu.KotlinLogging
 import services.getNotes
@@ -32,14 +34,34 @@ object HomeState {
             }
             logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
         }
+    }
 
-
+    fun onFilterAction(filter: Filter) {
+        logger.debug {
+            "onFilterAction ${
+                when (filter) {
+                    Filter.All -> "ALL"
+                    is Filter.ByType -> "ByType ${filter.type}"
+                }
+            } "
+        }
+        // Podemos hacerlo así
+        //_state.value = _state.value.copy(filter = filter)
+        // O usar el update del stateFlow
+        _state.update { it.copy(filter = filter) }
     }
 
     data class UiState(
         val isLoading: Boolean = false,
-        val notes: List<Note>? = null //
-    )
+        val notes: List<Note>? = null,
+        val filter: Filter = Filter.All
+    ) {
+        val filterNotes: List<Note>?
+            get() = when (filter) {
+                Filter.All -> notes
+                is Filter.ByType -> notes?.filter { it.type == filter.type }
+            }
+    }
 }
 
 /*private fun AppState.UiState.update(function: () -> AppState.UiState) {

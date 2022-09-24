@@ -48,7 +48,7 @@ fun HomeView(): Unit = with(HomeState) {
     MaterialTheme {
         // Componente que nos da una estructura donde podemos añadir otros componentes de Material
         // https://developer.android.com/jetpack/compose/layouts/material#scaffold
-        Scaffold(topBar = { TopBar() }) { padding ->
+        Scaffold(topBar = { TopBar(::onFilterAction) }) { padding ->
             // Le pasamos al padding al primer componente
             Box(
                 contentAlignment = Alignment.Center, // Todo centrado
@@ -63,8 +63,8 @@ fun HomeView(): Unit = with(HomeState) {
                     )
                 }
 
-                // Listas de notas
-                state.notes?.let {
+                // Listas de notas, pero ahora devolvemos las filtradas
+                state.filterNotes?.let {
                     NotesList(it)
                 }
 
