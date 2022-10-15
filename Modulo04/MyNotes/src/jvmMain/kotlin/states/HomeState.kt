@@ -3,31 +3,31 @@ package states
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import models.Filter
 import models.Note
 import mu.KotlinLogging
 import services.getNotes
-import kotlin.reflect.KProperty
 
 private val logger = KotlinLogging.logger {}
 
 // Para el ejercicio de los delegados 4.17
-private operator fun <T> StateFlow<T>.getValue(thisRef: Any?, property: KProperty<*>): T = this.value
-private operator fun <T> MutableStateFlow<T>.setValue(thisRef: Any?, property: KProperty<*>, newValue: T) {
-    this.value = newValue
-}
+//private operator fun <T> StateFlow<T>.getValue(thisRef: Any?, property: KProperty<*>): T = this.value
+//private operator fun <T> MutableStateFlow<T>.setValue(thisRef: Any?, property: KProperty<*>, newValue: T) {
+//    this.value = newValue
+//}
 
 // Y si lo pongo como object tendría un singleton
 object HomeState {
     // Estados privados mutables, públicos inmutables. Paso a Flow
-    // private val _state = MutableStateFlow(UiState())
-    // val state = _state.asStateFlow()
+    private val _state = MutableStateFlow(UiState())
+    val state = _state.asStateFlow()
 
     // Una alaterntaiva haciendo nuestros delegados, pero no es recomendable, pero es para acticar
-    var state: UiState by MutableStateFlow(UiState())
-        private set
+//    var state: UiState by MutableStateFlow(UiState())
+//        private set
 
 
     // Dos posibilidades, o nos creamos aquñi un scope  de corrutinas para consumilar o transformarla en suspend
@@ -36,14 +36,14 @@ object HomeState {
 
         coroutineScope.launch(CoroutineName("Corrutina loadNotes ")) {
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
-            // _state.value = UiState(isLoading = true)
-            state = UiState(isLoading = true)
+            _state.value = UiState(isLoading = true)
+            //state = UiState(isLoading = true)
             getNotes().collect {
                 logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo Notas" }
                 // cada vez que recibimos un valor se lo sumamos a la lista original
                 // Actualizamos la interfaz
-                // _state.value = UiState(notes = it, isLoading = false)
-                state = UiState(notes = it, isLoading = false)
+                _state.value = UiState(notes = it, isLoading = false)
+                // state = UiState(notes = it, isLoading = false)
             }
             logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
         }
@@ -61,9 +61,9 @@ object HomeState {
         // Podemos hacerlo así
         //_state.value = _state.value.copy(filter = filter)
         // O usar el update del stateFlow
-        //_state.update { it.copy(filter = filter) }
+        _state.update { it.copy(filter = filter) }
         // O usar el delegado
-        state = state.copy(filter = filter)
+        //state = state.copy(filter = filter)
     }
 
     data class UiState(
