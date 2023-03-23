@@ -1,0 +1,1 @@
+rootProject.name = "joseluisgs.es.mynotes-server"

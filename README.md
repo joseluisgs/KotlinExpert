@@ -15,6 +15,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Módulo 3: Concurrencia en Kotlin con Coroutines](#módulo-3-concurrencia-en-kotlin-con-coroutines)
   - [Módulo 4: Kotlin avanzando](#módulo-4-kotlin-avanzando)
   - [Módulo 5: Compatibilidad con Java](#módulo-5-compatibilidad-con-java)
+  - [Módulo 6: Ktor](#módulo-6-ktor)
   - [Repositorios de proyectos](#repositorios-de-proyectos)
   - [Autor](#autor)
     - [Contacto](#contacto)
@@ -56,7 +57,11 @@ En este módulo veremos aspectos avanzados o más específicos de Kotlin a nivel
 
 ## Módulo 5: Compatibilidad con Java
 
-En este módulo se trabajará la compatibilidad de Kotlin con Java: funciones de alto nivel, funciones de extensión, sobrecarga, Objects, labdas, etc.
+En este módulo se trabajará la compatibilidad de Kotlin con Java: funciones de alto nivel, funciones de extensión, sobrecarga, Objects, lambdas, etc.
+
+## Módulo 6: Ktor
+
+En este módulo veremos los fundamentos de Ktor para crear aplicaciones web en Kotlin. Veremos cómo crear un servidor web para desarrollar una API REST para nuestras notas.
 
 ## Repositorios de proyectos
 El repositorio original del proyecto se puede encontrar [aquí](https://github.com/DevExperto/kotlin-expert).
