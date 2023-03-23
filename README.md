@@ -14,6 +14,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Módulo 2: Conceptos básicos de Kotlin](#módulo-2-conceptos-básicos-de-kotlin)
   - [Módulo 3: Concurrencia en Kotlin con Coroutines](#módulo-3-concurrencia-en-kotlin-con-coroutines)
   - [Módulo 4: Kotlin avanzando](#módulo-4-kotlin-avanzando)
+  - [Módulo 5: Compatibilidad con Java](#módulo-5-compatibilidad-con-java)
   - [Repositorios de proyectos](#repositorios-de-proyectos)
   - [Autor](#autor)
     - [Contacto](#contacto)
@@ -52,6 +53,10 @@ Usaremos el uso de las corrutinas para el manejo de la concurrencia y con ello: 
 ## Módulo 4: Kotlin avanzando
 
 En este módulo veremos aspectos avanzados o más específicos de Kotlin a nivel de lenguaje y expresividad como son funciones infijas, locales, sobrecarga de operadores, tipos avanzados, genéricos, varianza, lambdas con receivers, scope functions, import alias o type alias... 
+
+## Módulo 5: Compatibilidad con Java
+
+En este módulo se trabajará la compatibilidad de Kotlin con Java: funciones de alto nivel, funciones de extensión, sobrecarga, Objects, labdas, etc.
 
 ## Repositorios de proyectos
 El repositorio original del proyecto se puede encontrar [aquí](https://github.com/DevExperto/kotlin-expert).
