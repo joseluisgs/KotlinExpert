@@ -1,1 +1,1 @@
-rootProject.name = "joseluisgs.es.mynotes-server"
+rootProject.name = "mynotes-server"
