@@ -9,6 +9,7 @@ import kotlinx.serialization.Serializable
 // Type será su clase internal
 @Serializable
 data class Note(
+    val id: Long,
     val title: String,
     val description: String,
     val type: Type = Type.TEXT,
