@@ -1,13 +1,13 @@
 package views
 
-import TopBar
+import HomeTopBar
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -20,14 +20,16 @@ import states.HomeState
 
 private val logger = KotlinLogging.logger {}
 
-@Composable
-fun App() = HomeView()
+// @Composable
+//fun App() = HomeView()
 
 // Funcion composable inicial, todos las funciones compose deben tener esta anotacion para indicar que es una funcion composable y generar el código
 // Recibe un estado general y global que hemos creado
+// creamos la lambda on create click para avisar de los cambios
 @Composable
 @Preview()
-fun HomeView(): Unit = with(HomeState) {
+fun HomeView(onCreateClick: () -> Unit): Unit = with(HomeState) {
+    logger.debug { "HomeView" }
 
     // Recogemos el flow, como podemos acceder al state porque estamos haciendo un with!
     // Lo trasformamos de flow a state de compose
@@ -48,7 +50,15 @@ fun HomeView(): Unit = with(HomeState) {
     MaterialTheme {
         // Componente que nos da una estructura donde podemos añadir otros componentes de Material
         // https://developer.android.com/jetpack/compose/layouts/material#scaffold
-        Scaffold(topBar = { TopBar(::onFilterAction) }) { padding ->
+        Scaffold(
+            topBar = { HomeTopBar(onFilterClick = ::onFilterAction, onCreateClick) },
+            floatingActionButton = {
+                FloatingActionButton(onClick = onCreateClick) {
+                    // Icono de añadir
+                    Icon(Icons.Default.Add, contentDescription = "Add note")
+                }
+            }
+        ) { padding ->
             // Le pasamos al padding al primer componente
             Box(
                 contentAlignment = Alignment.Center, // Todo centrado

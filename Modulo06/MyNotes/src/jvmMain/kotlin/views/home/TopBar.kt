@@ -14,12 +14,12 @@ private val logger = KotlinLogging.logger {}
 // Como debemos comunicarnos con fuera vamos a crear una lambda para subir el evento
 @Composable
 @Preview()
-fun TopBar(onFilterClick: (Filter) -> Unit) {
+fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
     TopAppBar(
         title = { Text(ConfigProperties.getProperty("app.title")) },
         // Bloque de acciones de la topAppBar
         actions = {
-            newAction { } // TODO
+            newAction(onCreateClick)
             filterActions(onFilterClick)
         }
     )

@@ -4,7 +4,7 @@ import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import utils.ConfigProperties
-import views.App
+import views.app.AppView
 
 
 // Funcion principal Creoa una ventana que al cerrar cierra la aplicacion
@@ -27,6 +27,6 @@ fun main() = application {
         icon = icon
     ) {
         // llama a la función composable App
-        App()
+        AppView()
     }
 }

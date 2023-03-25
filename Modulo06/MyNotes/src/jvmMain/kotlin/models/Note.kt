@@ -9,12 +9,16 @@ import kotlinx.serialization.Serializable
 // Type será su clase internal
 @Serializable
 data class Note(
-    val id: Long,
+    val id: Long = NEW_NOTE,
     val title: String,
     val description: String,
     val type: Type = Type.TEXT,
-    val createdAt: Instant,
+    val createdAt: Instant = Clock.System.now()
 ) {
+
+    companion object {
+        const val NEW_NOTE = -1L
+    }
 
 
     // Le voy a meter enums con campos extras para identificarlas mejor
