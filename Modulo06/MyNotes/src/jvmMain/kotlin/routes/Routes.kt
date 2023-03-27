@@ -1,4 +1,4 @@
-package views.app
+package routes
 
 // Mis Rutas de navegación
 sealed interface Route {

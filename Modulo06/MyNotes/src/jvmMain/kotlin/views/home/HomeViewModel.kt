@@ -1,17 +1,16 @@
-package states
+package views.home
 
-import data.api.notesRestClient
-import io.ktor.client.request.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import models.Filter
 import models.Note
 import mu.KotlinLogging
 import repository.NotesRepository
+
 
 private val logger = KotlinLogging.logger {}
 
@@ -21,31 +20,35 @@ private val logger = KotlinLogging.logger {}
 //    this.value = newValue
 //}
 
-// Y si lo pongo como object tendría un singleton
-object HomeState {
-    // Estados privados mutables, públicos inmutables. Paso a Flow
-    private val _state = MutableStateFlow(UiState())
-    val state = _state.asStateFlow()
+// ahora le paso el scope de corrutinas, para
+class HomeViewModel(val scope: CoroutineScope) {
+    // Estados privados mutables, públicos inmutables. Paso a Flow para estado compartido
+    //private val _state = MutableStateFlow(UiState())
+    // val state = _state.asStateFlow()
 
-    // Una alaterntaiva haciendo nuestros delegados, pero no es recomendable, pero es para acticar
-//    var state: UiState by MutableStateFlow(UiState())
-//        private set
-
+    // Vamos a usar los mutable stte de compose
+    var state by mutableStateOf(UiState())
+        private set
 
     // Dos posibilidades, o nos creamos aquñi un scope  de corrutinas para consumilar o transformarla en suspend
-    suspend fun loadNotes(coroutineScope: CoroutineScope) {
+
+    init {
+        // Nada más cargar el viewModel, cargamos las notas
+        loadNotes()
+    }
+
+    private fun loadNotes() {
         //debemos hacerlo en un hilo aparte para no bloquear, hasta qu eveamos las corrutinas
 
-        coroutineScope.launch(CoroutineName("Corrutina loadNotes ")) {
+        scope.launch(CoroutineName("Corrutina loadNotes ")) {
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
-            val response = notesRestClient.request("http://localhost:8080/notes")
-            _state.value = UiState(isLoading = true)
+            state = UiState(isLoading = true)
             //state = UiState(isLoading = true)
-            NotesRepository.getNotes().collect {
+            NotesRepository.getAll().collect {
                 logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo Notas" }
                 // cada vez que recibimos un valor se lo sumamos a la lista original
                 // Actualizamos la interfaz
-                _state.value = UiState(notes = it, isLoading = false)
+                state = UiState(notes = it, isLoading = false)
                 // state = UiState(notes = it, isLoading = false)
             }
             logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
@@ -64,9 +67,9 @@ object HomeState {
         // Podemos hacerlo así
         //_state.value = _state.value.copy(filter = filter)
         // O usar el update del stateFlow
-        _state.update { it.copy(filter = filter) }
+        // state.update { it.copy(filter = filter) }
         // O usar el delegado
-        //state = state.copy(filter = filter)
+        state = state.copy(filter = filter)
     }
 
     data class UiState(
@@ -81,8 +84,3 @@ object HomeState {
             }
     }
 }
-
-
-/*private fun AppState.UiState.update(function: () -> AppState.UiState) {
-    state = function()
-}*/

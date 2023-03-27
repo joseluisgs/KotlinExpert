@@ -9,14 +9,11 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import mu.KotlinLogging
-import states.HomeState
+import views.home.HomeViewModel
 
 private val logger = KotlinLogging.logger {}
 
@@ -26,14 +23,17 @@ private val logger = KotlinLogging.logger {}
 // Funcion composable inicial, todos las funciones compose deben tener esta anotacion para indicar que es una funcion composable y generar el código
 // Recibe un estado general y global que hemos creado
 // creamos la lambda on create click para avisar de los cambios
+// Le pasamos el ViewModel para que sepa que tiene que hacer por constructor
 @Composable
 @Preview()
-fun HomeView(onCreateClick: () -> Unit): Unit = with(HomeState) {
+fun HomeView(vm: HomeViewModel, onCreateClick: () -> Unit) {
     logger.debug { "HomeView" }
 
     // Recogemos el flow, como podemos acceder al state porque estamos haciendo un with!
     // Lo trasformamos de flow a state de compose
-    val state by state.collectAsState()
+    // val state by state.collectAsState()
+
+    // Ya vamos directo con el ViewModel
 
     // Usamos lauch effect para evitar que se repinten continuamente cuando se reconponga, e spor ello, que solo se pinta si le decimos que ha cambiado (true)
     // y por lo tanto se ejecuta el código de nuevo
@@ -41,9 +41,9 @@ fun HomeView(onCreateClick: () -> Unit): Unit = with(HomeState) {
     // tambien podemos conseguir un contexto de corrutinas con
     // val scope = rememberCoroutineScope()
     // Pero no nos hace falta
-    LaunchedEffect(true) {
+    /*LaunchedEffect(true) {
         loadNotes(this) // Carga las notas con currutinas
-    }
+    }*/
 
 
     // Estamos con el tipo material
@@ -51,7 +51,7 @@ fun HomeView(onCreateClick: () -> Unit): Unit = with(HomeState) {
         // Componente que nos da una estructura donde podemos añadir otros componentes de Material
         // https://developer.android.com/jetpack/compose/layouts/material#scaffold
         Scaffold(
-            topBar = { HomeTopBar(onFilterClick = ::onFilterAction, onCreateClick) },
+            topBar = { HomeTopBar(onFilterClick = vm::onFilterAction, onCreateClick) },
             floatingActionButton = {
                 FloatingActionButton(onClick = onCreateClick) {
                     // Icono de añadir
@@ -66,7 +66,7 @@ fun HomeView(onCreateClick: () -> Unit): Unit = with(HomeState) {
             ) {
                 // Progress bar
                 // Cuando se recompknga si ha cambiado el estado no se pinta
-                if (state.isLoading) {
+                if (vm.state.isLoading) {
                     CircularProgressIndicator(
                         modifier = Modifier.padding(16.dp),
                         color = MaterialTheme.colors.primary
@@ -74,7 +74,7 @@ fun HomeView(onCreateClick: () -> Unit): Unit = with(HomeState) {
                 }
 
                 // Listas de notas, pero ahora devolvemos las filtradas
-                state.filterNotes?.let {
+                vm.state.filterNotes?.let {
                     NotesList(it)
                 }
 
