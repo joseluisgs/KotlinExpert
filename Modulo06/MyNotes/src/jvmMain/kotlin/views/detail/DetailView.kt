@@ -22,8 +22,8 @@ private val logger = KotlinLogging.logger {}
 fun DetailView(
     vm: DetailViewModel,
     onClose: () -> Unit,
-    onSave: () -> Unit, // No lo usamos
-    onDelete: () -> Unit // No lo usamos
+    // onSave: () -> Unit, // No lo usamos
+    // onDelete: () -> Unit // No lo usamos
 ) {
     logger.debug { "DetailView ${vm.state.note.id}" }
 
@@ -39,7 +39,7 @@ fun DetailView(
     }*/
 
     // Ya tenemos la nota en el ViewModel, ya es mutableState
-    var nota = vm.state.note
+    val nota = vm.state.note
 
     Scaffold(
         topBar = {

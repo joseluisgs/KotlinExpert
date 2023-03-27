@@ -33,8 +33,8 @@ fun AppView() {
                 vm = DetailViewModel(scope, it.id),
                 onClose = { route = Route.Home },
                 // Estos me pueden sobrar si los hago en el DetailViewModel
-                onSave = { /* TODO */ },
-                onDelete = { /* TODO */ }
+                //onSave = { /* TODO */ },
+                //onDelete = { /* TODO */ }
             )
         }
     }
