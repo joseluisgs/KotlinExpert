@@ -7,8 +7,11 @@ import joseluisgs.es.plugins.configureRouting
 import joseluisgs.es.plugins.configureSerialization
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
-        .start(wait = true)
+    embeddedServer(
+        Netty, port = 8080,
+        host = "0.0.0.0",
+        module = Application::module
+    ).start(wait = true)
 }
 
 // Configuración de la aplicación

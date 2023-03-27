@@ -1,7 +1,6 @@
 package views.app
 
 import androidx.compose.runtime.*
-import models.Note
 import mu.KotlinLogging
 import routes.Route
 import views.HomeView
@@ -26,7 +25,7 @@ fun AppView() {
             // Cuando es Home, cargamos el HomeView y si pulsamos el botón de crear, cambiamos la ruta a Detail con id -1
             is Route.Home -> HomeView(
                 vm = HomeViewModel(scope),
-                onCreateClick = { route = Route.Detail(Note.NEW_NOTE) }
+                onNoteClick = { noteId -> route = Route.Detail(noteId) }
             )
 
             // Cuando es Detail, cargamos el DetailView y le pasamos el id

@@ -1,5 +1,6 @@
 package repository
 
+import config.AppConfig
 import data.api.notesRestClient
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -11,7 +12,7 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
-private const val NOTES_URL = "http://localhost:8080/notes"
+private val NOTES_URL = AppConfig.NOTES_API_URL + "/notes"
 
 object NotesRepository {
     // Lo trasformamos en un flujo, esta vez de listas de notas
@@ -38,6 +39,7 @@ object NotesRepository {
     }
 
     suspend fun update(note: Note): Note {
+        println("****Update: $note")
         logger.debug { "[${Thread.currentThread().name}] -> Update Nota Remote" }
         val response = notesRestClient.put(NOTES_URL) {
             setBody(note)

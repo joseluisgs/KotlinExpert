@@ -4,10 +4,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.runtime.*
+import config.AppConfig
 import models.Filter
 import models.Note
 import mu.KotlinLogging
-import utils.ConfigProperties
 
 private val logger = KotlinLogging.logger {}
 
@@ -16,7 +16,7 @@ private val logger = KotlinLogging.logger {}
 @Preview()
 fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
     TopAppBar(
-        title = { Text(ConfigProperties.getProperty("app.title")) },
+        title = { Text(AppConfig.APP_TITLE) },
         // Bloque de acciones de la topAppBar
         actions = {
             newAction(onCreateClick)

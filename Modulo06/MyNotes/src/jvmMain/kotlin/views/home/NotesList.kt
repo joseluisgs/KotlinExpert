@@ -1,6 +1,6 @@
 package views
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,8 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.input.pointer.PointerIconDefaults
-import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import models.Note
@@ -24,9 +23,9 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class) // Para los eventos de ratón
 @Composable
-fun NotesList(notes: List<Note>) {
+fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
     // Crea un listado de celdas a partir de una colección de datos pudiendo reutilizar el componente de celda es un RecyclerView
     // https://developer.android.com/jetpack/compose/lists?hl=es-419
     LazyColumn(
@@ -49,11 +48,28 @@ fun NotesList(notes: List<Note>) {
                     // change mouse cursor to pointer when hovering over the cardAñade un icono de micrófono al cursor cuando pasa por encima de la celda
                     .pointerHoverIcon(icon = PointerIconDefaults.Hand, overrideDescendants = true)
                     // Cuando hagamos click en la celda, se muestra el dialogo con la nota seleccionada
-                    .clickable {
+                    /*.clickable {
                         // println("Has pulsado en la nota $note")
                         logger.debug { "Has pulsado en la nota $note" }
                         showDialog = true
                         selectedNote = note
+                    }*/
+                    // Para el cuadro de Alerta si es pulsado
+                    .onPointerEvent(PointerEventType.Press) {
+                        when {
+                            it.buttons.isPrimaryPressed -> {
+                                logger.debug { "Has pulsado izquierdo en la nota $note" }
+                                // Abrimos el detalle
+                                onNoteClick(note)
+                            }
+
+                            it.buttons.isSecondaryPressed -> {
+                                logger.debug { "Has pulsado derecho en la nota $note" }
+                                // Abrimos el dialogo
+                                showDialog = true
+                                selectedNote = note
+                            }
+                        }
                     }
             ) {
                 // Para el cuadro de Alerta si es pulsado
@@ -66,6 +82,7 @@ fun NotesList(notes: List<Note>) {
                         )
                     }
                 }
+
                 // Muestra el item que recibe en formato Columna, uno debajo de otro
                 Column(
                     modifier = Modifier.padding(16.dp) // Añade 16dp de padding a cada lado
@@ -89,7 +106,7 @@ fun NotesList(notes: List<Note>) {
                         NoteIcon(note.type)
                     }
                     Spacer(modifier = Modifier.height(8.dp)) // Espacio entre componentes de la columna
-                    Text(text = note.description) // Muestra el texto de la nota
+                    Text(text = note.description.take(200)) // Muestra la descripción de la nota limitada a 200 caracteres
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = note.getMoment(),

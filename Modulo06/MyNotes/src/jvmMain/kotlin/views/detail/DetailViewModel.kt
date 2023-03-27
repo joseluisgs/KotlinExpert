@@ -49,7 +49,7 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
 
     // indica que la nota se ha guardado para recogerlo en la vista
     fun update(note: Note) {
-        logger.debug { "update Note" }
+        //logger.debug { "update Note" }
         state = state.copy(note = note)
     }
 

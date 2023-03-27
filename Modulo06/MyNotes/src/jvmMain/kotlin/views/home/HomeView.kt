@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import models.Note
 import mu.KotlinLogging
 import views.home.HomeViewModel
 
@@ -26,7 +27,7 @@ private val logger = KotlinLogging.logger {}
 // Le pasamos el ViewModel para que sepa que tiene que hacer por constructor
 @Composable
 @Preview()
-fun HomeView(vm: HomeViewModel, onCreateClick: () -> Unit) {
+fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
     logger.debug { "HomeView" }
 
     // Recogemos el flow, como podemos acceder al state porque estamos haciendo un with!
@@ -51,9 +52,14 @@ fun HomeView(vm: HomeViewModel, onCreateClick: () -> Unit) {
         // Componente que nos da una estructura donde podemos añadir otros componentes de Material
         // https://developer.android.com/jetpack/compose/layouts/material#scaffold
         Scaffold(
-            topBar = { HomeTopBar(onFilterClick = vm::onFilterAction, onCreateClick) },
+            topBar = {
+                HomeTopBar(
+                    onFilterClick = vm::onFilterAction,
+                    onCreateClick = { onNoteClick(Note.NEW_NOTE) }
+                )
+            },
             floatingActionButton = {
-                FloatingActionButton(onClick = onCreateClick) {
+                FloatingActionButton(onClick = { onNoteClick(Note.NEW_NOTE) }) {
                     // Icono de añadir
                     Icon(Icons.Default.Add, contentDescription = "Add note")
                 }
@@ -74,8 +80,8 @@ fun HomeView(vm: HomeViewModel, onCreateClick: () -> Unit) {
                 }
 
                 // Listas de notas, pero ahora devolvemos las filtradas
-                vm.state.filterNotes?.let {
-                    NotesList(it)
+                vm.state.filterNotes?.let { notes ->
+                    NotesList(notes, onNoteClick = { onNoteClick(it.id) })
                 }
 
             }
