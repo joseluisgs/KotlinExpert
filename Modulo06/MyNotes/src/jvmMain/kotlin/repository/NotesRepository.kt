@@ -22,8 +22,8 @@ object NotesRepository {
     }
 
     // Estudiar lo de cambiar el tipo de retorno a Flow
-    suspend fun get(id: Long): Note {
-        logger.debug { "[${Thread.currentThread().name}] -> Get Nota Remote" }
+    suspend fun getById(id: Long): Note {
+        logger.debug { "[${Thread.currentThread().name}] -> Get Nota Remote con id:$id" }
         val respose = notesRestClient.get("$NOTES_URL/$id")
         return respose.body()
     }

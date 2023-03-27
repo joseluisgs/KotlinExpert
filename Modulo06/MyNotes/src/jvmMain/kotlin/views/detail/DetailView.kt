@@ -20,14 +20,14 @@ private val logger = KotlinLogging.logger {}
 
 @Composable
 fun DetailView(
-    id: Long,
+    vm: DetailViewModel,
     onClose: () -> Unit,
-    onSave: () -> Unit,
-    onDelete: () -> Unit
+    onSave: () -> Unit, // No lo usamos
+    onDelete: () -> Unit // No lo usamos
 ) {
-    logger.debug { "DetailView $id" }
+    logger.debug { "DetailView ${vm.state.note.id}" }
 
-    var nota by remember {
+    /*var nota by remember {
         mutableStateOf(
             Note(
                 id = id,
@@ -36,39 +36,58 @@ fun DetailView(
                 type = Note.Type.TEXT
             )
         )
-    }
+    }*/
+
+    // Ya tenemos la nota en el ViewModel, ya es mutableState
+    var nota = vm.state.note
 
     Scaffold(
         topBar = {
             DetailTopBar(
                 nota = nota,
-                onClose = onClose,
-                onSave = onSave,
-                onDelete = onDelete
+                onClose = onClose, // Cerramos la vista
+                onSave = vm::save, // Salvamos la nota
+                onDelete = vm::delete // Borramos la nota
             )
         }
     ) {
-        // Formulario
-        Column(modifier = Modifier.padding(32.dp)) {
-            OutlinedTextField(
-                value = nota.title,
-                onValueChange = { nota = nota.copy(title = it) },
-                label = { Text("Titulo") },
-                modifier = Modifier.fillMaxWidth(),
-                maxLines = 1
-            )
-            TypeDropDown(
-                value = nota.type,
-                onValueChanged = { nota = nota.copy(type = it) },
-                modifier = Modifier.fillMaxWidth()
-            )
-            OutlinedTextField(
-                value = nota.description,
-                onValueChange = { nota = nota.copy(description = it) },
-                label = { Text("Descripción") },
-                modifier = Modifier.fillMaxWidth().weight(1f)
-            )
+        // Si la hemos salvado cerramos
+        if (vm.state.saved) {
+            onClose()
         }
+
+        // Si estamos cargando mostramos un circulo de carga
+        if (vm.state.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            // Si no mostramos el formulario de la nota
+            NoteForm(vm, nota)
+        }
+
+    }
+}
+
+@Composable
+private fun NoteForm(vm: DetailViewModel, nota: Note) {
+    Column(modifier = Modifier.padding(32.dp)) {
+        OutlinedTextField(
+            value = nota.title,
+            onValueChange = { vm.update(nota.copy(title = it)) },
+            label = { Text("Titulo") },
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
+        )
+        TypeDropDown(
+            value = nota.type,
+            onValueChanged = { vm.update(nota.copy(type = it)) },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = nota.description,
+            onValueChange = { vm.update(nota.copy(description = it)) },
+            label = { Text("Descripción") },
+            modifier = Modifier.fillMaxWidth().weight(1f)
+        )
     }
 }
 

@@ -6,6 +6,7 @@ import mu.KotlinLogging
 import routes.Route
 import views.HomeView
 import views.detail.DetailView
+import views.detail.DetailViewModel
 import views.home.HomeViewModel
 
 private val logger = KotlinLogging.logger {}
@@ -29,8 +30,10 @@ fun AppView() {
             )
 
             // Cuando es Detail, cargamos el DetailView y le pasamos el id
-            is Route.Detail -> DetailView(it.id,
+            is Route.Detail -> DetailView(
+                vm = DetailViewModel(scope, it.id),
                 onClose = { route = Route.Home },
+                // Estos me pueden sobrar si los hago en el DetailViewModel
                 onSave = { /* TODO */ },
                 onDelete = { /* TODO */ }
             )

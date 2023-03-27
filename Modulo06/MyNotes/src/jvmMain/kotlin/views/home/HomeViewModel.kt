@@ -21,7 +21,7 @@ private val logger = KotlinLogging.logger {}
 //}
 
 // ahora le paso el scope de corrutinas, para
-class HomeViewModel(val scope: CoroutineScope) {
+class HomeViewModel(private val scope: CoroutineScope) {
     // Estados privados mutables, públicos inmutables. Paso a Flow para estado compartido
     //private val _state = MutableStateFlow(UiState())
     // val state = _state.asStateFlow()
