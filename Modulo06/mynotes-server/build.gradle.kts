@@ -10,6 +10,7 @@ val koin_ktor_version: String by project
 val ksp_version: String by project
 val koin_ksp_version: String by project
 val koin_version: String by project
+val hikari_version: String by project
 
 
 plugins {
@@ -53,6 +54,9 @@ dependencies {
 
     // H2 JDBC driver
     implementation("com.h2database:h2:$h2_jdbc_version")
+    // Opcionales
+    // Para manejar un pool de conexions mega rápido con HikariCP (no es obligatorio)
+    implementation("com.zaxxer:HikariCP:$hikari_version")
 
     // Logger
     implementation("io.github.microutils:kotlin-logging-jvm:$micrologging_version")
