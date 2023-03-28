@@ -1,4 +1,4 @@
-package joseluisgs.es.models
+package es.joseluisgs.models
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant

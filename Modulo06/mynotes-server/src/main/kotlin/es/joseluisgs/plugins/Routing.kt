@@ -1,11 +1,11 @@
-package joseluisgs.es.plugins
+package es.joseluisgs.plugins
 
+import es.joseluisgs.routes.notesRoutes
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import joseluisgs.es.routes.notesRoutes
 import kotlinx.html.*
 
 fun Application.configureRouting() {

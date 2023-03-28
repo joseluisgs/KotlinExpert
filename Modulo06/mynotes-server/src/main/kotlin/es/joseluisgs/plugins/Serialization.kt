@@ -1,4 +1,4 @@
-package joseluisgs.es.plugins
+package es.joseluisgs.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

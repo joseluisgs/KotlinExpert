@@ -1,10 +1,10 @@
-package joseluisgs.es
+package es.joseluisgs
 
+import es.joseluisgs.plugins.configureRouting
+import es.joseluisgs.plugins.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import joseluisgs.es.plugins.configureRouting
-import joseluisgs.es.plugins.configureSerialization
 
 fun main() {
     embeddedServer(

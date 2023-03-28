@@ -1,12 +1,12 @@
-package joseluisgs.es.routes
+package es.joseluisgs.routes
 
+import es.joseluisgs.models.Note
+import es.joseluisgs.repositories.NotesRepository
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import joseluisgs.es.models.Note
-import joseluisgs.es.repositories.NotesRepository
 
 fun Application.notesRoutes() {
     routing {
