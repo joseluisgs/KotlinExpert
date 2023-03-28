@@ -1,34 +1,37 @@
 package es.joseluisgs.database
 
-import app.cash.sqldelight.db.SqlDriver
-import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
-import java.io.File
+import es.joseluisgs.entities.NotesTable
+import mu.KotlinLogging
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.koin.core.annotation.Single
 
-private const val DATABASE_NAME = "notes.db"
 
-object DataBaseManager {
-    // Podemos usar un driver de memoria o lo que queramos
-    // private val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-    private val driver: SqlDriver = JdbcSqliteDriver("jdbc:sqlite:$DATABASE_NAME")
+private val logger = KotlinLogging.logger {}
+
+// Lo mejor es sacarlo a un fichero de configuración
+private const val DATABASE_URL = "jdbc:h2:file:./"
+private const val DATABASE_NAME = "Notes"
+private const val DATABASE_DRIVER = "org.h2.Driver"
+private const val DATABASE_USER = "sa"
+private const val DATABASE_PASSWORD = ""
+
+@Single
+class DataBaseManager {
 
     init {
-        // Creamos la base de datos si el fichero no existe
-        if (!File(DATABASE_NAME).exists()) {
-            AppDatabase.Schema.create(driver)
-        }
-
-        // queremos limpiar la base de datos
-        // removeAllData()
+        logger.debug { "Conectando la base de datos" }
+        Database.connect(
+            url = "$DATABASE_URL$DATABASE_NAME;DB_CLOSE_DELAY=-1",
+            driver = DATABASE_DRIVER,
+            user = DATABASE_USER,
+            password = DATABASE_PASSWORD
+        )
     }
 
-    val notes = AppDatabase(driver).noteQueries
-
-    // limpiamos las tablas
-    fun removeAllData() {
-        // Limpiamos las tablas
-        notes.transaction {
-            notes.removeAll()
-        }
+    fun initDataBase() = transaction {
+        logger.debug { "Inicializando la base de datos" }
+        SchemaUtils.create(NotesTable)
     }
-
 }

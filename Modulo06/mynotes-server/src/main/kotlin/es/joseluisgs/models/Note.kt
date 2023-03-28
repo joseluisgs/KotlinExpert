@@ -12,6 +12,8 @@ data class Note(
     val type: Type,
     val createdAt: Instant = Clock.System.now(),
 ) {
+
+
     // Le voy a meter enums con campos extras para identificarlas mejor
     enum class Type { TEXT, AUDIO }
 }

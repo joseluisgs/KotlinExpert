@@ -3,12 +3,20 @@ val kotlin_version: String by project
 val logback_version: String by project
 val datetime_version: String by project
 val sqldelight_version: String by project
+val micrologging_version: String by project
+val exposed_version: String by project
+val h2_jdbc_version: String by project
+val koin_ktor_version: String by project
+val ksp_version: String by project
+val koin_ksp_version: String by project
+val koin_version: String by project
+
 
 plugins {
     kotlin("jvm") version "1.8.10"
     id("io.ktor.plugin") version "2.2.4"
     kotlin("plugin.serialization") version "1.8.10"
-    id("app.cash.sqldelight") version "2.0.0-alpha05"
+    id("com.google.devtools.ksp") version "1.8.10-1.0.9" // Para Koin Annotation Processor
 }
 
 group = "joseluisgs.es"
@@ -36,24 +44,32 @@ dependencies {
     // HTML Builder
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
 
-    // datetime
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
+    // Exposed
+    implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
+    // Kotlin data time support es multiplatorma
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposed_version")
 
-    // SQLDelight JVM
-    implementation("app.cash.sqldelight:sqlite-driver:$sqldelight_version")
-    implementation("app.cash.sqldelight:coroutines-extensions:$sqldelight_version") // Coroutines support for queries.
+    // H2 JDBC driver
+    implementation("com.h2database:h2:$h2_jdbc_version")
+
+    // Logger
+    implementation("io.github.microutils:kotlin-logging-jvm:$micrologging_version")
+
+    // Koin
+    implementation("io.insert-koin:koin-ktor:$koin_ktor_version") // Koin para Ktor
+    implementation("io.insert-koin:koin-logger-slf4j:$koin_ktor_version") // Koin para Ktor con Logger
+    implementation("io.insert-koin:koin-annotations:$koin_ksp_version") // Si usamos Koin con KSP Anotaciones
+    ksp("io.insert-koin:koin-ksp-compiler:$koin_ksp_version") // Si usamos Koin con KSP Anotaciones
 
     // Test
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
 
-// La base de datos
-sqldelight {
-    databases {
-        // Nombre de la base de datos y el paquete donde se creará
-        create("AppDatabase") {
-            packageName.set("es.joseluisgs.database")
-        }
-    }
+// Para Koin Annotations, directorio donde se encuentran las clases compiladas
+// KSP - To use generated sources
+sourceSets.main {
+    java.srcDirs("build/generated/ksp/main/kotlin")
 }
