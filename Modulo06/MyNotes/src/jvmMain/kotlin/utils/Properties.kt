@@ -2,7 +2,6 @@ package utils
 
 import java.util.*
 
-
 abstract class PropertiesReader(private val fileName: String) {
     private val properties by lazy { Properties() }
 
