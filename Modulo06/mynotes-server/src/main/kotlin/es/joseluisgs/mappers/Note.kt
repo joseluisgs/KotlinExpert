@@ -10,5 +10,5 @@ fun NotesDao.toNote() = Note(
     title = this.title,
     description = this.description,
     type = Note.Type.valueOf(this.type),
-    createdAt = this.createdAt.toInstant(TimeZone.UTC)
+    createdAt = this.createdAt.toInstant(TimeZone.UTC) // UTC para ser universal!!
 )

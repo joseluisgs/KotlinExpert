@@ -16,6 +16,7 @@ data class Note(
     val createdAt: Instant = Clock.System.now()
 ) {
 
+    // Para la creación de una nueva nota
     companion object {
         const val NEW_NOTE = -1L
     }
@@ -27,6 +28,7 @@ data class Note(
         AUDIO(2, "audio"),
     }
 
+    // Para sacar el momento de creación de la nota
     fun getMoment(): String {
         val period: DateTimePeriod = createdAt.periodUntil(
             other = Clock.System.now(),

@@ -36,7 +36,7 @@ class NotesRepository {
             title = note.title
             description = note.description
             type = note.type.name
-            createdAt = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+            createdAt = Clock.System.now().toLocalDateTime(TimeZone.UTC) // UTC para ser universal!!
         }.toNote()
     }
 

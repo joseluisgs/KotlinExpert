@@ -7,26 +7,26 @@ import config.AppConfig
 import views.app.AppView
 
 
-// Funcion principal Creoa una ventana que al cerrar cierra la aplicacion
+// application es una función de alto nivel que nos permite crear una aplicación de escritorio
 fun main() = application {
 
-    // Icono de la aplicacion
+    // Icono de la aplicación
     val icon = painterResource("app-icon.png")
 
-    // Pone un icono de Try
+    // Pone un icono de Try en la barra de tareas
     Tray(
         icon = icon,
         menu = {
             Item("¿Salir de MyNotes?", onClick = ::exitApplication)
         }
     )
-    // Configuramos la ventana
+    // Crea una ventana
     Window(
         onCloseRequest = ::exitApplication,
         title = AppConfig.APP_NAME,
         icon = icon
     ) {
-        // llama a la función composable App
+        // Carga la vista principal que es el composablee AppView
         AppView()
     }
 }

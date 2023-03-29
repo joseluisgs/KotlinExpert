@@ -23,9 +23,11 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
+// Lista de notas
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class) // Para los eventos de ratón
 @Composable
 fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
+
     // Crea un listado de celdas a partir de una colección de datos pudiendo reutilizar el componente de celda es un RecyclerView
     // https://developer.android.com/jetpack/compose/lists?hl=es-419
     LazyColumn(
@@ -39,7 +41,8 @@ fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
             var showDialog by mutableStateOf(false)
             var selectedNote by mutableStateOf<Note?>(null)
 
-            // Crea una celda con el item que recibe del tipo Card: https://devexperto.com/cards-jetpack-compose/
+            // Crea una celda con el item que recibe del tipo Card:
+            // https://devexperto.com/cards-jetpack-compose/
             Card(
                 modifier = Modifier
                     .padding(8.dp) // Añade 16dp de padding a cada lado
@@ -47,14 +50,16 @@ fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
                     .shadow(elevation = 4.dp) // Añade una sombra de 4dp a cada lado
                     // change mouse cursor to pointer when hovering over the cardAñade un icono de micrófono al cursor cuando pasa por encima de la celda
                     .pointerHoverIcon(icon = PointerIconDefaults.Hand, overrideDescendants = true)
+
                     // Cuando hagamos click en la celda, se muestra el dialogo con la nota seleccionada
+                    // detecta solo un clic, pero no los dos botones
                     /*.clickable {
                         // println("Has pulsado en la nota $note")
                         logger.debug { "Has pulsado en la nota $note" }
                         showDialog = true
                         selectedNote = note
                     }*/
-                    // Para el cuadro de Alerta si es pulsado
+                    // Para el cuadro de Alerta si es pulsado dependiendo del boton
                     .onPointerEvent(PointerEventType.Press) {
                         when {
                             it.buttons.isPrimaryPressed -> {
@@ -96,18 +101,17 @@ fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
                             // Que ocupe el 100% del ancho de la fila y empuja al resto
                             fontWeight = FontWeight.Bold
                         )
-                        // Muestra el icono de micrófono solo si la nota es de deese tipo
-//                            if (note.type == Note.Type.AUDIO) {
-//                                Icon(
-//                                    imageVector = Icons.Default.Mic,
-//                                    contentDescription = "micrófono"
-//                                )
-//                            }
+
+                        // Mostramos el icono de la nota
                         NoteIcon(note.type)
                     }
+
                     Spacer(modifier = Modifier.height(8.dp)) // Espacio entre componentes de la columna
+
                     Text(text = note.description.take(200)) // Muestra la descripción de la nota limitada a 200 caracteres
+
                     Spacer(modifier = Modifier.height(4.dp))
+
                     Text(
                         text = note.getMoment(),
                         style = MaterialTheme.typography.caption,

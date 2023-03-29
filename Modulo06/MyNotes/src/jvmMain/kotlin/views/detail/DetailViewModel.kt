@@ -11,6 +11,7 @@ import repository.NotesRepository
 
 private val logger = KotlinLogging.logger {}
 
+// View Model de la vista Detail
 class DetailViewModel(private val scope: CoroutineScope, private val idNote: Long) {
     var state by mutableStateOf(UiState())
         private set
@@ -38,6 +39,7 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
         scope.launch {
             var note = state.note
             state = state.copy(isLoading = true)
+            // salva o actualiza según el id
             note = if (note.id == Note.NEW_NOTE) {
                 NotesRepository.save(note)
             } else {
@@ -47,12 +49,13 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
         }
     }
 
-    // indica que la nota se ha guardado para recogerlo en la vista
+    // indica que la nota se ha actualizado para recogerlo en la vista
     fun update(note: Note) {
         //logger.debug { "update Note" }
         state = state.copy(note = note)
     }
 
+    // Borra una nota del servicio
     fun delete() {
         logger.debug { "delete Note" }
         scope.launch {
@@ -63,7 +66,7 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
     }
 
 
-    // El estado de la vista
+    // El estado de la vista, con la nota, si se está cargando y si se ha salvado
     data class UiState(
         val note: Note = Note(description = "", title = "", type = Note.Type.TEXT),
         val isLoading: Boolean = false, // indica si se está cargando la nota
