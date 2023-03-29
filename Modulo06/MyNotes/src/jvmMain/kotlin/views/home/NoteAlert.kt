@@ -15,6 +15,7 @@ import utils.dateParser
 
 private val logger = KotlinLogging.logger {}
 
+// Alert Dialog
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 // Lo escribo en mayúsculas porque es un objeto composable
@@ -24,6 +25,7 @@ fun NoteAlert(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
+    // Si el show dialog es true, lo muestro
     if (showDialog) {
         AlertDialog(
             modifier = Modifier.fillMaxWidth(0.5F),

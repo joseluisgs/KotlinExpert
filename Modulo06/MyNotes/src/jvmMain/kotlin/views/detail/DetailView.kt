@@ -22,27 +22,17 @@ private val logger = KotlinLogging.logger {}
 fun DetailView(
     vm: DetailViewModel,
     onClose: () -> Unit,
-    // onSave: () -> Unit, // No lo usamos
-    // onDelete: () -> Unit // No lo usamos
+    // onSave: () -> Unit, // No lo usamos, lo cogemos del ViewModel
+    // onDelete: () -> Unit // No lo usamos, lo cogemos del ViewModel
 ) {
     logger.debug { "DetailView ${vm.state.note.id}" }
-
-    /*var nota by remember {
-        mutableStateOf(
-            Note(
-                id = id,
-                title = "",
-                description = "",
-                type = Note.Type.TEXT
-            )
-        )
-    }*/
 
     // Ya tenemos la nota en el ViewModel, ya es mutableState
     val nota = vm.state.note
 
     Scaffold(
         topBar = {
+            // TopBar con los botones de cerrar, salvar y borrar
             DetailTopBar(
                 nota = nota,
                 onClose = onClose, // Cerramos la vista
@@ -67,8 +57,10 @@ fun DetailView(
     }
 }
 
+// Formulario de la nota
 @Composable
 private fun NoteForm(vm: DetailViewModel, nota: Note) {
+    // Columna con el formulario y padding
     Column(modifier = Modifier.padding(32.dp)) {
         OutlinedTextField(
             value = nota.title,
@@ -77,6 +69,7 @@ private fun NoteForm(vm: DetailViewModel, nota: Note) {
             modifier = Modifier.fillMaxWidth(),
             maxLines = 1
         )
+        // Mi DropDown
         TypeDropDown(
             value = nota.type,
             onValueChanged = { vm.update(nota.copy(type = it)) },
@@ -91,9 +84,15 @@ private fun NoteForm(vm: DetailViewModel, nota: Note) {
     }
 }
 
+// Dropdown de tipos de notas
 @Composable
-private fun TypeDropDown(value: Note.Type, onValueChanged: (Note.Type) -> Unit, modifier: Modifier) {
+private fun TypeDropDown(
+    value: Note.Type,
+    onValueChanged: (Note.Type) -> Unit,
+    modifier: Modifier
+) {
 
+    // Estado de si esta expandido o no
     var expanded by remember { mutableStateOf(false) }
 
     Box(modifier = modifier, propagateMinConstraints = true) {
@@ -123,6 +122,7 @@ private fun TypeDropDown(value: Note.Type, onValueChanged: (Note.Type) -> Unit, 
     }
 }
 
+// Mi topbar
 @Composable
 private fun DetailTopBar(
     nota: Note,
@@ -130,6 +130,7 @@ private fun DetailTopBar(
     onSave: () -> Unit,
     onDelete: () -> Unit
 ) {
+    // TopBar
     TopAppBar(
         title = { Text(text = "Nota: ${nota.title}") },
         navigationIcon = {

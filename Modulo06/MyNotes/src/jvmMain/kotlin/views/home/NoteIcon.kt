@@ -10,6 +10,7 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
+// Icono de la nota
 @Composable
 fun NoteIcon(type: Note.Type) {
     when (type) {

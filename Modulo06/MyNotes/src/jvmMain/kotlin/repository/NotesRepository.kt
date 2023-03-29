@@ -12,6 +12,7 @@ import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
+// Esta es la URL de la API de notas desde el cliente
 private val NOTES_URL = AppConfig.NOTES_API_URL + "/notes"
 
 object NotesRepository {

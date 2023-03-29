@@ -1,64 +1,61 @@
 package es.joseluisgs.repositories
 
-import es.joseluisgs.database.DataBaseManager
-import es.joseluisgs.mappers.toModel
+import es.joseluisgs.entities.NotesDao
+import es.joseluisgs.mappers.toNote
 import es.joseluisgs.models.Note
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import mu.KotlinLogging
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import org.jetbrains.exposed.sql.transactions.experimental.suspendedTransactionAsync
+import org.koin.core.annotation.Single
 
-object NotesRepository {
-    private var notes = mutableListOf<Note>()
-    private var currentId = 1L
+private val logger = KotlinLogging.logger {}
 
-    private val notesDb = DataBaseManager.notes
+@Single
+class NotesRepository {
 
-    /*init {
-        notes = (1..10).map {
-            Note(
-                id = currentId++,
-                title = "Title $it",
-                description = "Description $it",
-                type = if (it % 3 == 0) Note.Type.AUDIO else Note.Type.TEXT,
-                createdAt = Clock.System.now() - (1..10000).random().toLong().seconds
-            )
-        }.toMutableList()
-    }*/
-
-    fun getAllNotes(): List<Note> = notesDb.selectAll().executeAsList().map { it.toModel() }
-
-    fun getById(id: Long) = notesDb.selectById(id).executeAsOneOrNull()?.toModel()
-
-    fun save(note: Note): Note {
-        // Al usar el LastInserted lo hacemos dentro de una transacción con resultado
-        return notesDb.transactionWithResult {
-            notesDb.insert(
-                title = note.title,
-                description = note.description,
-                type = note.type.name,
-                created_at = note.createdAt.toString()
-            )
-            return@transactionWithResult notesDb.selectLastInserted().executeAsOne().toModel()
-        }
+    suspend fun getAllNotes(): Flow<Note> = newSuspendedTransaction(Dispatchers.IO) {
+        logger.debug { "findAll()" }
+        NotesDao.all().map { it.toNote() }.asFlow()
     }
 
-    fun update(note: Note): Note? {
-        val updated = getById(note.id) ?: return null
-
-        notesDb.update(
-            title = note.title,
-            description = note.description,
-            type = note.type.name,
-            id = note.id
-        )
-
-        return updated.copy(
-            title = note.title,
-            description = note.description,
-            type = note.type
-        )
+    suspend fun getById(id: Long): Deferred<Note?> = suspendedTransactionAsync(Dispatchers.IO) {
+        logger.debug { "findById($id)" }
+        NotesDao.findById(id)?.toNote()
     }
 
-    fun delete(id: Long): Boolean {
-        if (getById(id) == null) return false
-        notesDb.delete(id)
-        return true
+    suspend fun save(note: Note): Deferred<Note> = suspendedTransactionAsync(Dispatchers.IO) {
+        logger.debug { "save($note)" }
+        return@suspendedTransactionAsync NotesDao.new {
+            title = note.title
+            description = note.description
+            type = note.type.name
+            createdAt = Clock.System.now().toLocalDateTime(TimeZone.UTC) // UTC para ser universal!!
+        }.toNote()
+    }
+
+    suspend fun update(note: Note): Deferred<Note?> = suspendedTransactionAsync(Dispatchers.IO) {
+        logger.debug { "update($note)" }
+        val updated = NotesDao.findById(note.id) ?: return@suspendedTransactionAsync null
+
+        return@suspendedTransactionAsync updated.apply {
+            title = note.title
+            description = note.description
+            type = note.type.name
+        }.toNote()
+
+    }
+
+    suspend fun delete(id: Long): Deferred<Boolean> = suspendedTransactionAsync(Dispatchers.IO) {
+        logger.debug { "delete($id)" }
+        val deleted = NotesDao.findById(id) ?: return@suspendedTransactionAsync false
+        deleted.delete()
+        return@suspendedTransactionAsync true
     }
 }

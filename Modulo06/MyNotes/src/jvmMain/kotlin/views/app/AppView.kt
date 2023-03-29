@@ -15,7 +15,7 @@ fun AppView() {
     logger.debug { "AppView" }
     // Lo primero es almacenar la ruta actual, y lo cargamos en el HomeView
     var route by remember { mutableStateOf<Route>(Route.Home) }
-    // Creamos el scope
+    // Creamos el scope para las corrutinas y viewModel
     val scope = rememberCoroutineScope()
 
     // Rutas de navegación, constantes y rutas

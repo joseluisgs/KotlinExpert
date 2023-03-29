@@ -19,6 +19,7 @@ fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
         title = { Text(AppConfig.APP_TITLE) },
         // Bloque de acciones de la topAppBar
         actions = {
+            // Son funciones composables, pero podríamos haber usado funciones normales
             newAction(onCreateClick)
             filterActions(onFilterClick)
         }
@@ -31,19 +32,6 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
     // para manejar el estado y se recuerde y sea observable el dropdown
     var expanded by remember { mutableStateOf(false) }
 
-    // Vamos a crear una función local paar practicar
-    // ademas infija
-    // Es un poco loco, por eso lo deshacemos
-    /*@Composable
-    infix fun Filter.toMenuItem(label: String) {
-        DropdownMenuItem(onClick = {
-            expanded = false
-            onFilterClick(this)
-        }) {
-            Text(label)
-        }
-    }*/
-
     IconButton(onClick = { expanded = !expanded }) {
         Icon(
             imageVector = Icons.Default.FilterList,
@@ -55,10 +43,6 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
             expanded = expanded,
             onDismissRequest = { expanded = !expanded }
         ) {
-            /*// Usamos nuestra nueva función local infija
-            Filter.All toMenuItem "All"
-            Filter.ByType(Note.Type.TEXT) toMenuItem "Text"
-            Filter.ByType(Note.Type.AUDIO) toMenuItem "Audio"*/
 
             // Para simplifcar el código usamo pares
             listOf(
