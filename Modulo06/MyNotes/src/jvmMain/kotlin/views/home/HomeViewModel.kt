@@ -29,17 +29,17 @@ class HomeViewModel(private val scope: CoroutineScope) {
     init {
         // Nada más cargar el viewModel, cargamos las notas
         logger.debug { "HomeViewModel.init()" }
-
+        // Cargo las notas
         loadNotes()
     }
 
-    private fun removeNotes() {
+    /*private fun removeNotes() {
         scope.launch(CoroutineName("Corrutina removeNotes ")) {
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Borrando notas" }
             NotesRepository.rememoveAll()
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas borradas" }
         }
-    }
+    }*/
 
 
     private fun loadNotes() {
@@ -48,18 +48,19 @@ class HomeViewModel(private val scope: CoroutineScope) {
             state = UiState(isLoading = true)
 
             // Elimino las notas
-            logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Borrando notas" }
-            removeNotes()
+            // logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Borrando notas" }
+            // removeNotes()
 
             // Creo las notas
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo las notas" }
-            /*NotesRepository.getAll().collect {
+            NotesRepository.getAll().collect {
                 // Actualizamos la interfaz y estado
+                logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo El flow de notas" }
                 state = state.copy(notes = it, isLoading = false)
-            }*/
+            }
 
             // Otra forma de hacerlo
-            state = state.copy(notes = NotesRepository.getAll().first(), isLoading = false)
+            //state = state.copy(notes = NotesRepository.getAll().first(), isLoading = false)
 
             logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
         }

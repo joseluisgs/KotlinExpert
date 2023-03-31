@@ -8,9 +8,11 @@ import data.database.SqlDeLightClient
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mappers.toNote
 import models.Note
@@ -26,14 +28,48 @@ object NotesRepository {
     val notesDb = SqlDeLightClient.noteQueries
     val notesApi = notesRestClient
 
-    suspend fun rememoveAll() = withContext(Dispatchers.IO) {
-        logger.debug { "[${Thread.currentThread().name}] -> Remove All Data" }
+    init {
+        logger.debug { "NotesRepository.init()" }
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            // Limpiamos la base de datos
+            logger.debug { "[${Thread.currentThread().name}] -> Remove All Notes from DB" }
+            notesDb.removeAll()
+
+            // Obtenemos las notas de la API
+            logger.debug { "[${Thread.currentThread().name}] -> Get Notas Remote" }
+            fetchNotes()
+        }
+
+    }
+
+    private suspend fun fetchNotes() = withContext(Dispatchers.IO) {
+        // Llamamos a la API y obtenemos las notas
+        logger.debug { "[${Thread.currentThread().name}] -> Get Notas Remote" }
+        val response = notesApi.get(NOTES_URL)
+        val notes = response.body<List<Note>>()
+
+        // Actualizamos la base de datos
+        logger.debug { "[${Thread.currentThread().name}] -> Insertando notas en la base de datos" }
+        notes.forEach {
+            notesDb.insert(
+                id = it.id,
+                title = it.title,
+                description = it.description,
+                type = it.type.name,
+                created_at = it.createdAt.toString(),
+            )
+        }
+    }
+
+    private suspend fun rememoveAll() = withContext(Dispatchers.IO) {
+        logger.debug { "[${Thread.currentThread().name}] -> Remove All Notes from DB" }
         notesDb.removeAll()
     }
 
     suspend fun getAll(): Flow<List<Note>> = withContext(Dispatchers.IO) {
         // Llamamos a la API
-        logger.debug { "[${Thread.currentThread().name}] -> Get Notas Remote" }
+        /*logger.debug { "[${Thread.currentThread().name}] -> Get Notas Remote" }
         val response = notesApi.get(NOTES_URL)
         val notes = response.body<List<Note>>()
         // Actualizamos la base de datos
@@ -46,7 +82,9 @@ object NotesRepository {
                     type = it.type.name,
                     created_at = it.createdAt.toString(),
                 )
-            }
+            }*/
+
+        // Obtenemos las notas de la base de datos
         logger.debug { "[${Thread.currentThread().name}] -> Select All from BD" }
         // Emitimos el flujo
         return@withContext notesDb.selectAll().asFlow().mapToList(Dispatchers.IO)
@@ -58,21 +96,22 @@ object NotesRepository {
         // logger.debug { "[${Thread.currentThread().name}] -> Get Nota remote con id:$id" }
         // val respose = notesRestClient.get("$NOTES_URL/$id")
         //return respose.body()
+
         // ya devolvemos la nota de la base de datos
         logger.debug { "[${Thread.currentThread().name}] -> Get Nota BD con id:$id" }
         return@withContext notesDb.selectById(id).executeAsOne().toNote()
     }
 
-    suspend fun save(note: Note): Note {
+    suspend fun save(note: Note): Note = withContext(Dispatchers.IO) {
+        // Llamamos a la API
         logger.debug { "[${Thread.currentThread().name}] -> Create Nota Remote" }
         val response = notesApi.post(NOTES_URL) {
             setBody(note)
             contentType(ContentType.Application.Json)
         }
         val savedNote = response.body<Note>()
+
         // Insertamos en la base de datos
-        /*
-        No es necesario porque siempre descargamos todas las notas
         logger.debug { "[${Thread.currentThread().name}] -> Insertamos en BD" }
         notesDb.insert(
             id = savedNote.id,
@@ -80,41 +119,39 @@ object NotesRepository {
             description = savedNote.description,
             type = savedNote.type.name,
             created_at = savedNote.createdAt.toString(),
-        )*/
-        return savedNote
+        )
+        return@withContext savedNote
     }
 
-    suspend fun update(note: Note): Note {
-        println("****Update: $note")
+    suspend fun update(note: Note): Note = withContext(Dispatchers.IO) {
+        // Llamamos a la API
         logger.debug { "[${Thread.currentThread().name}] -> Update Nota Remote" }
         val response = notesApi.put(NOTES_URL) {
             setBody(note)
             contentType(ContentType.Application.Json)
         }
         val updatedNote = response.body<Note>()
+
         // Actualizamos en la base de datos
-        /*
-        No es necesario porque siempre descargamos todas las notas
         logger.debug { "[${Thread.currentThread().name}] -> Actualizamos en BD" }
         notesDb.update(
             id = updatedNote.id,
             title = updatedNote.title,
             description = updatedNote.description,
             type = updatedNote.type.name,
-            created_at = updatedNote.createdAt.toString(),
-         */
-        return response.body()
+            created_at = updatedNote.createdAt.toString()
+        )
+        return@withContext updatedNote
     }
 
     suspend fun delete(id: Long): Boolean {
+        // Llamamos a la API
         logger.debug { "[${Thread.currentThread().name}] -> Delete Nota Remote" }
         val response = notesApi.delete("$NOTES_URL/$id")
+
         // Eliminamos de la base de datos
-        /*
-        No es necesario porque siempre descargamos todas las notas
         logger.debug { "[${Thread.currentThread().name}] -> Eliminamos de BD" }
         notesDb.delete(id)
-         */
         return response.status.value == 204
     }
 }
