@@ -61,7 +61,11 @@ En este módulo se trabajará la compatibilidad de Kotlin con Java: funciones de
 
 ## Módulo 6: Ktor
 
-En este módulo veremos los fundamentos de Ktor para crear aplicaciones web en Kotlin. Veremos cómo crear un servidor web para desarrollar una API REST para nuestras notas.
+En este módulo veremos los fundamentos de Ktor para crear aplicaciones web en Kotlin. Veremos cómo crear un servidor web para desarrollar una API REST para nuestras notas y cambiaremos el cliente para que consuma este servicio.
+
+Como ampliación, se ha creado una cache reactiva con SQLDelight para el cliente.
+
+El servicio trabajará de manera asíncrona con [Coroutines y Exposed](https://github.com/JetBrains/Exposed/wiki/Transactions#working-with-coroutines) para la base de datos.
 
 ## Repositorios de proyectos
 El repositorio original del proyecto se puede encontrar [aquí](https://github.com/DevExperto/kotlin-expert).

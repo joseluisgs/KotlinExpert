@@ -17,6 +17,7 @@ import org.koin.core.annotation.Single
 
 private val logger = KotlinLogging.logger {}
 
+// Mirar: https://github.com/JetBrains/Exposed/wiki/Transactions#working-with-coroutines
 @Single
 class NotesRepository {
 
