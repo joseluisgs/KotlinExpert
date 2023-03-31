@@ -33,11 +33,8 @@ object NotesRepository {
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             // Limpiamos la base de datos
-            logger.debug { "[${Thread.currentThread().name}] -> Remove All Notes from DB" }
-            notesDb.removeAll()
-
+            rememoveAll()
             // Obtenemos las notas de la API
-            logger.debug { "[${Thread.currentThread().name}] -> Get Notas Remote" }
             fetchNotes()
         }
 
