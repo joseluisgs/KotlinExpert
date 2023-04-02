@@ -11,9 +11,6 @@ val notesRestClient = HttpClient(OkHttp) {
     // Configuración
     install(ContentNegotiation) {
         // Configuramos el cliente para que trabaje con JSON
-        json(Json {
-            prettyPrint = true
-            isLenient = true
-        })
+        json()
     }
 }
