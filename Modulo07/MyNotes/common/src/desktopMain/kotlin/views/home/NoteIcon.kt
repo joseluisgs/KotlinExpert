@@ -6,9 +6,6 @@ import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.runtime.Composable
 import models.Note
-import mu.KotlinLogging
-
-private val logger = KotlinLogging.logger {}
 
 // Icono de la nota
 @Composable

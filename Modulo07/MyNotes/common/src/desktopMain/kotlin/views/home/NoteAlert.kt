@@ -10,10 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import models.Note
-import mu.KotlinLogging
 import utils.dateParser
-
-private val logger = KotlinLogging.logger {}
 
 // Alert Dialog
 @OptIn(ExperimentalMaterialApi::class)

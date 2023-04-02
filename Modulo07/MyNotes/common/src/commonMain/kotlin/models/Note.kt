@@ -23,9 +23,9 @@ data class Note(
 
 
     // Le voy a meter enums con campos extras para identificarlas mejor
-    enum class Type(val id: Int, val typeNote: String) {
-        TEXT(1, "text"),
-        AUDIO(2, "audio"),
+    enum class Type(val id: Int) {
+        TEXT(1),
+        AUDIO(2),
     }
 
     // Para sacar el momento de creación de la nota

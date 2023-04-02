@@ -43,6 +43,9 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
+                // Corrutinas
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+
                 // SQLDelight Common
                 implementation("app.cash.sqldelight:coroutines-extensions:$sqldelight_version")
             }
@@ -57,9 +60,6 @@ kotlin {
 
                 // Salida del logger desktop
                 implementation("ch.qos.logback:logback-classic:$logback_version")
-
-                // Corrutinas
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutines_version")
 
                 // SQLDelight Desktop
                 implementation("app.cash.sqldelight:sqlite-driver:$sqldelight_version")
