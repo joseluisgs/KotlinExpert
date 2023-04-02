@@ -13,7 +13,7 @@ data class Note(
     val title: String,
     val description: String,
     val type: Type = Type.TEXT,
-    val createdAt: Instant = Clock.System.now()
+    val createdAt: Instant = Clock.System.now(),
 ) {
 
     // Para la creación de una nueva nota

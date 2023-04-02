@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import models.Note
 import mu.KotlinLogging
-import views.home.HomeViewModel
 
 private val logger = KotlinLogging.logger {}
 

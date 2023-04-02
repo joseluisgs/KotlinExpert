@@ -23,7 +23,7 @@ fun NoteAlert(
     note: Note,
     showDialog: Boolean,
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     // Si el show dialog es true, lo muestro
     if (showDialog) {

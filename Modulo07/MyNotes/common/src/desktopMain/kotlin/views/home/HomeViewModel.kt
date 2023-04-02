@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import models.Filter
 import models.Note
@@ -83,7 +81,7 @@ class HomeViewModel(private val scope: CoroutineScope) {
     data class UiState(
         val isLoading: Boolean = false,
         val notes: List<Note>? = null,
-        val filter: Filter = Filter.All
+        val filter: Filter = Filter.All,
     ) {
         val filterNotes: List<Note>?
             get() = when (filter) {

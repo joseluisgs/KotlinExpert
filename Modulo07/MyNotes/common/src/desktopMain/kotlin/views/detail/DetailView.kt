@@ -89,7 +89,7 @@ private fun NoteForm(vm: DetailViewModel, nota: Note) {
 private fun TypeDropDown(
     value: Note.Type,
     onValueChanged: (Note.Type) -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
 
     // Estado de si esta expandido o no
@@ -128,7 +128,7 @@ private fun DetailTopBar(
     nota: Note,
     onClose: () -> Unit,
     onSave: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
 ) {
     // TopBar
     TopAppBar(
