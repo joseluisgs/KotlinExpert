@@ -1,5 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 val ktor_version: String by rootProject.project
 val datetime_version: String by rootProject.project
 val logging_version: String by rootProject.project
@@ -26,10 +24,15 @@ kotlin {
 
     // SourceSet, cada uno en su carpeta dentro de src
     sourceSets {
+
+        // Esto es para todos!!
         val commonMain by getting {
             // Para compose genérico
             dependencies {
                 implementation(compose.desktop.currentOs)
+
+                // Logger common
+                implementation("io.github.microutils:kotlin-logging:$logging_version")
 
                 // Kotlin data time
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
@@ -46,15 +49,13 @@ kotlin {
         }
         val commonTest by getting
 
+        // Esto es para Desktop
         val desktopMain by getting {
             dependencies {
                 // Para iconos de la aplicación
                 implementation(compose.materialIconsExtended)
 
-                // Logger
-                implementation("io.github.microutils:kotlin-logging:$logging_version")
-
-                // Salida del logger
+                // Salida del logger desktop
                 implementation("ch.qos.logback:logback-classic:$logback_version")
 
                 // Corrutinas

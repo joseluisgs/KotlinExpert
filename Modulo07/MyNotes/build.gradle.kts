@@ -1,14 +1,3 @@
-import org.jetbrains.compose.compose
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
-val ktor_version: String by project
-val datetime_version: String by project
-val logging_version: String by project
-val logback_version: String by project
-val coroutines_version: String by project
-val sqldelight_version: String by project
-
-
 group = "dev.joseluisgs"
 version = "1.0-SNAPSHOT"
 
