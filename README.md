@@ -16,6 +16,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Módulo 4: Kotlin avanzando](#módulo-4-kotlin-avanzando)
   - [Módulo 5: Compatibilidad con Java](#módulo-5-compatibilidad-con-java)
   - [Módulo 6: Ktor](#módulo-6-ktor)
+  - [Módulo 7: Kotlin Multiplatform](#módulo-7-kotlin-multiplatform)
   - [Repositorios de proyectos](#repositorios-de-proyectos)
   - [Autor](#autor)
     - [Contacto](#contacto)
@@ -66,6 +67,9 @@ En este módulo veremos los fundamentos de Ktor para crear aplicaciones web en K
 Como ampliación, se ha creado una cache reactiva con SQLDelight para el cliente.
 
 El servicio trabajará de manera asíncrona con [Coroutines y Exposed](https://github.com/JetBrains/Exposed/wiki/Transactions#working-with-coroutines) para la base de datos.
+
+## Módulo 7: Kotlin Multiplatform
+En este módulo veremos los fundamentos de [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) para crear aplicaciones multiplataforma en Kotlin. Veremos cómo crear un proyecto multiplataforma para desarrollar una aplicación de notas y cambiaremos el cliente para que consuma este servicio adoptando el sistema multiplataforma.
 
 ## Repositorios de proyectos
 El repositorio original del proyecto se puede encontrar [aquí](https://github.com/DevExperto/kotlin-expert).
