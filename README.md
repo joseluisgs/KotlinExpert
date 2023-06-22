@@ -17,6 +17,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Módulo 5: Compatibilidad con Java](#módulo-5-compatibilidad-con-java)
   - [Módulo 6: Ktor](#módulo-6-ktor)
   - [Módulo 7: Kotlin Multiplatform](#módulo-7-kotlin-multiplatform)
+  - [Módulo 8: Kotlin JS](#módulo-8-kotlin-js)
   - [Repositorios de proyectos](#repositorios-de-proyectos)
   - [Autor](#autor)
     - [Contacto](#contacto)
@@ -70,6 +71,9 @@ El servicio trabajará de manera asíncrona con [Coroutines y Exposed](https://g
 
 ## Módulo 7: Kotlin Multiplatform
 En este módulo veremos los fundamentos de [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) para crear aplicaciones multiplataforma en Kotlin. Veremos cómo crear un proyecto multiplataforma para desarrollar una aplicación de notas y cambiaremos el cliente para que consuma este servicio adoptando el sistema multiplataforma: tarjets, source sets, etc.
+
+## Módulo 8: Kotlin JS
+En este módulo veremos los fundamentos de [Kotlin JS](https://kotlinlang.org/docs/js-overview.html) para crear aplicaciones web en Kotlin. Veremos cómo configurar nuestro proyecto, compartir código con el cliente y cómo crear una aplicación web con Kotlin JS y [Compose web](https://github.com/JetBrains/compose-multiplatform/#web).
 
 ## Repositorios de proyectos
 El repositorio original del proyecto se puede encontrar [aquí](https://github.com/DevExperto/kotlin-expert).
