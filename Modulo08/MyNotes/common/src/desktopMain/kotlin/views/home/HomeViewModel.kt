@@ -45,10 +45,6 @@ class HomeViewModel(private val scope: CoroutineScope) {
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
             state = UiState(isLoading = true)
 
-            // Elimino las notas
-            // logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Borrando notas" }
-            // removeNotes()
-
             // Creo las notas
             logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo las notas" }
             NotesRepository.getAll().collect {

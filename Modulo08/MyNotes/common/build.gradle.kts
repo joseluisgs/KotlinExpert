@@ -4,6 +4,7 @@ val logging_version: String by rootProject.project
 val logback_version: String by rootProject.project
 val coroutines_version: String by rootProject.project
 val sqldelight_version: String by rootProject.project
+val cache_version: String by rootProject.project
 
 plugins {
     kotlin("multiplatform")
@@ -49,7 +50,10 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
 
                 // SQLDelight Common
-                implementation("app.cash.sqldelight:coroutines-extensions:$sqldelight_version")
+                // implementation("app.cash.sqldelight:coroutines-extensions:$sqldelight_version")
+
+                // Cache4k
+                implementation("io.github.reactivecircus.cache4k:cache4k:$cache_version")
             }
         }
         val commonTest by getting
@@ -65,7 +69,7 @@ kotlin {
                 implementation("ch.qos.logback:logback-classic:$logback_version")
 
                 // SQLDelight Desktop
-                implementation("app.cash.sqldelight:sqlite-driver:$sqldelight_version")
+                // implementation("app.cash.sqldelight:sqlite-driver:$sqldelight_version")
 
                 // Ktor client
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
@@ -78,6 +82,10 @@ kotlin {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
                 implementation("io.ktor:ktor-client-js:$ktor_version")
+                // SQL Delight JS
+                // implementation("app.cash.sqldelight:sqljs-driver:$sqldelight_version")
+                // implementation(npm("sql.js", "1.6.2"))
+                // implementation(devNpm("copy-webpack-plugin", "9.1.0"))
             }
         }
         // Para usar tests
@@ -86,6 +94,7 @@ kotlin {
 }
 
 // SQLDelight, Nombre de la base de datos y paquete de destino
+/*
 sqldelight {
     databases {
         create("AppDatabase") {
@@ -93,4 +102,4 @@ sqldelight {
         }
     }
 }
-
+*/
