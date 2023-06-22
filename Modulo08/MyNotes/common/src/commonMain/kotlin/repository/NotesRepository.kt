@@ -38,7 +38,7 @@ object NotesRepository {
 
     }
 
-    private suspend fun fetchNotes() = withContext(Dispatchers.Default) {
+    private suspend fun fetchNotes()  {
         // Llamamos a la API y obtenemos las notas
         logger.debug { "Get Notas Remote" }
         val response = notesApi.get(NOTES_URL)
@@ -51,12 +51,12 @@ object NotesRepository {
         }
     }
 
-    private suspend fun rememoveAll() = withContext(Dispatchers.Default) {
+    private suspend fun rememoveAll() {
         logger.debug { "Remove All Notes from DB" }
         notesCache.invalidateAll()
     }
 
-    suspend fun getAll(): Flow<List<Note>> = withContext(Dispatchers.Default) {
+    suspend fun getAll(): Flow<List<Note>> {
         // Si no hay notas en la base de datos las obtenemos de la API
         if (notesCache.asMap().isEmpty()) {
             logger.debug { "No hay notas en la cache" }
@@ -64,18 +64,18 @@ object NotesRepository {
         }
         // Emitimos el flujo
         logger.debug { "Emitimos el flujo" }
-        return@withContext flowOf(notesCache.asMap().values.toList())
+        return flowOf(notesCache.asMap().values.toList())
 
     }
 
     // Estudiar lo de cambiar el tipo de retorno a Flow
-    suspend fun getById(id: Long): Note = withContext(Dispatchers.Default) {
+    suspend fun getById(id: Long): Note {
         // Devolvemos de la cache
         logger.debug { "Get Nota by Id from Cache" }
-        return@withContext notesCache.get(id)!!
+        return notesCache.get(id)!!
     }
 
-    suspend fun save(note: Note): Note = withContext(Dispatchers.Default) {
+    suspend fun save(note: Note): Note {
         // Llamamos a la API
         logger.debug { "Create Nota Remote" }
         val response = notesApi.post(NOTES_URL) {
@@ -87,10 +87,10 @@ object NotesRepository {
         // Insertamos en la base de datos
         logger.debug { "Insertamos en Cache" }
         notesCache.put(savedNote.id, savedNote)
-        return@withContext savedNote
+        return savedNote
     }
 
-    suspend fun update(note: Note): Note = withContext(Dispatchers.Default) {
+    suspend fun update(note: Note): Note {
         // Llamamos a la API
         logger.debug { "Update Nota Remote" }
         val response = notesApi.put(NOTES_URL) {
@@ -102,7 +102,7 @@ object NotesRepository {
         // Actualizamos en la base de datos
         logger.debug { "Actualizamos en Cache" }
         notesCache.put(updatedNote.id, updatedNote)
-        return@withContext updatedNote
+        return updatedNote
     }
 
     suspend fun delete(id: Long): Boolean {

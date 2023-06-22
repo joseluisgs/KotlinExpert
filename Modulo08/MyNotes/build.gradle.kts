@@ -14,6 +14,5 @@ plugins {
     kotlin("multiplatform") apply false
     id("org.jetbrains.compose") apply false
     kotlin("plugin.serialization") apply false
-    id("app.cash.sqldelight") apply false
 }
 

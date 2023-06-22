@@ -1,6 +1,5 @@
 package views.home
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -16,7 +15,6 @@ private val logger = KotlinLogging.logger {}
 
 // Como debemos comunicarnos con fuera vamos a crear una lambda para subir el evento
 @Composable
-@Preview()
 fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
     TopAppBar(
         title = { Text("${AppConfig.APP_TITLE} ${getPlatformName()}") },

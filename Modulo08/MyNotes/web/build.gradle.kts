@@ -33,7 +33,7 @@ kotlin {
             dependencies {
                 // Comunes
                 implementation(project(":common"))
-                // Específicos
+                // Específicos para JS
                 implementation(compose.web.core)
                 implementation(compose.runtime)
             }
@@ -49,4 +49,4 @@ kotlin {
 
 // Registrar esta tarea para que la compilación funcione correctamente
 // Workaround for https://youtrack.jetbrains.com/issue/KTIJ-16480
-tasks.register("prepareKotlinBuildScriptModel"){}
+tasks.register("prepareKotlinBuildScriptModel") {}

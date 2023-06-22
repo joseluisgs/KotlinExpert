@@ -15,11 +15,6 @@ import repository.NotesRepository
 private val logger = KotlinLogging.logger {}
 
 class HomeViewModel(private val scope: CoroutineScope) {
-    // podemos usar StateFlow o MutableState
-    // Estados privados mutables, públicos inmutables. Paso a Flow para estado compartido
-    //private val _state = MutableStateFlow(UiState())
-    // val state = _state.asStateFlow()
-
     // Vamos a usar MutableState de Compose
     var state by mutableStateOf(UiState())
         private set
@@ -31,32 +26,24 @@ class HomeViewModel(private val scope: CoroutineScope) {
         loadNotes()
     }
 
-    /*private fun removeNotes() {
-        scope.launch(CoroutineName("Corrutina removeNotes ")) {
-            logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Borrando notas" }
-            NotesRepository.rememoveAll()
-            logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas borradas" }
-        }
-    }*/
-
 
     private fun loadNotes() {
         scope.launch(CoroutineName("Corrutina loadNotes ")) {
-            logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
+            logger.debug { "[ ${this.coroutineContext[CoroutineName]} ] -> Cargando notas" }
             state = UiState(isLoading = true)
 
             // Creo las notas
-            logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo las notas" }
+            logger.debug { "[ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo las notas" }
             NotesRepository.getAll().collect {
                 // Actualizamos la interfaz y estado
-                logger.debug { "[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo El flow de notas" }
+                logger.debug { " [ ${this.coroutineContext[CoroutineName]} ] -> Consumiendo El flow de notas" }
                 state = state.copy(notes = it, isLoading = false)
             }
 
             // Otra forma de hacerlo
             //state = state.copy(notes = NotesRepository.getAll().first(), isLoading = false)
 
-            logger.debug { "\"[${Thread.currentThread().name}] [ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
+            logger.debug { "[ ${this.coroutineContext[CoroutineName]} ] -> Notas cargadas" }
         }
     }
 

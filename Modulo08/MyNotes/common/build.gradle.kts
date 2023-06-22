@@ -10,7 +10,6 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     kotlin("plugin.serialization")
-    id("app.cash.sqldelight")
 }
 
 group = "dev.joseluisgs"
@@ -34,6 +33,14 @@ kotlin {
         val commonMain by getting {
             // Para compose genérico
             dependencies {
+                // Api Compose para usar en todos los módulos
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material)
+
+                // Para usar iconos
+                implementation(compose.materialIconsExtended)
+
                 // Logger common
                 implementation("io.github.microutils:kotlin-logging:$logging_version")
 
@@ -42,15 +49,11 @@ kotlin {
 
                 // Ktor client
                 implementation("io.ktor:ktor-client-core:$ktor_version")
-                // implementation("io.ktor:ktor-client-okhttp:$ktor_version") // Engine
                 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
                 // Corrutinas
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
-
-                // SQLDelight Common
-                // implementation("app.cash.sqldelight:coroutines-extensions:$sqldelight_version")
 
                 // Cache4k
                 implementation("io.github.reactivecircus.cache4k:cache4k:$cache_version")
@@ -61,17 +64,11 @@ kotlin {
         // Esto es para Desktop
         val desktopMain by getting {
             dependencies {
-                implementation(compose.desktop.currentOs)
-                // Para iconos de la aplicación
-                implementation(compose.materialIconsExtended)
 
                 // Salida del logger desktop
                 implementation("ch.qos.logback:logback-classic:$logback_version")
 
-                // SQLDelight Desktop
-                // implementation("app.cash.sqldelight:sqlite-driver:$sqldelight_version")
-
-                // Ktor client
+                // Ktor client para desktop
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
             }
         }
@@ -79,27 +76,14 @@ kotlin {
         // Esto pata js web
         val jsMain by getting {
             dependencies {
-                implementation(compose.web.core)
-                implementation(compose.runtime)
+                // implementation(compose.web.core)
+                // implementation(compose.runtime)
+
+                // Ktor client para js
                 implementation("io.ktor:ktor-client-js:$ktor_version")
-                // SQL Delight JS
-                // implementation("app.cash.sqldelight:sqljs-driver:$sqldelight_version")
-                // implementation(npm("sql.js", "1.6.2"))
-                // implementation(devNpm("copy-webpack-plugin", "9.1.0"))
             }
         }
         // Para usar tests
         val jsTest by getting
     }
 }
-
-// SQLDelight, Nombre de la base de datos y paquete de destino
-/*
-sqldelight {
-    databases {
-        create("AppDatabase") {
-            packageName.set("database")
-        }
-    }
-}
-*/

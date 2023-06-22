@@ -19,6 +19,7 @@ kotlin {
             dependencies {
                 // Lo que hay en commons que me interesa
                 implementation(project(":common"))
+                // El especifico de desktop
                 implementation(compose.desktop.currentOs)
             }
         }

@@ -1,6 +1,5 @@
 package views.home
 
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,7 +20,6 @@ private val logger = KotlinLogging.logger {}
 // un id de nota y no devuelve nada
 
 @Composable
-@Preview()
 fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
     logger.debug { "HomeView" }
 

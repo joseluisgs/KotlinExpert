@@ -9,9 +9,9 @@ import models.Note
 import mu.KotlinLogging
 import repository.NotesRepository
 
-private val logger = KotlinLogging.logger {}
-
 // View Model de la vista Detail
+
+private val logger = KotlinLogging.logger {}
 class DetailViewModel(private val scope: CoroutineScope, private val idNote: Long) {
     var state by mutableStateOf(UiState())
         private set
