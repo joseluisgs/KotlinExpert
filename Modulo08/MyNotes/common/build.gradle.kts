@@ -21,6 +21,10 @@ kotlin {
         jvmToolchain(17) // Java 17
         withJava()
     }
+    // JS
+    js(IR) {
+        browser()
+    }
 
     // SourceSet, cada uno en su carpeta dentro de src
     sourceSets {
@@ -29,8 +33,6 @@ kotlin {
         val commonMain by getting {
             // Para compose genérico
             dependencies {
-                implementation(compose.desktop.currentOs)
-
                 // Logger common
                 implementation("io.github.microutils:kotlin-logging:$logging_version")
 
@@ -39,7 +41,7 @@ kotlin {
 
                 // Ktor client
                 implementation("io.ktor:ktor-client-core:$ktor_version")
-                implementation("io.ktor:ktor-client-okhttp:$ktor_version") // Engine
+                // implementation("io.ktor:ktor-client-okhttp:$ktor_version") // Engine
                 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
@@ -55,6 +57,7 @@ kotlin {
         // Esto es para Desktop
         val desktopMain by getting {
             dependencies {
+                implementation(compose.desktop.currentOs)
                 // Para iconos de la aplicación
                 implementation(compose.materialIconsExtended)
 
@@ -63,8 +66,22 @@ kotlin {
 
                 // SQLDelight Desktop
                 implementation("app.cash.sqldelight:sqlite-driver:$sqldelight_version")
+
+                // Ktor client
+                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
             }
         }
+
+        // Esto pata js web
+        val jsMain by getting {
+            dependencies {
+                implementation(compose.web.core)
+                implementation(compose.runtime)
+                implementation("io.ktor:ktor-client-js:$ktor_version")
+            }
+        }
+        // Para usar tests
+        val jsTest by getting
     }
 }
 

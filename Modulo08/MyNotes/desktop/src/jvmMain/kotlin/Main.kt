@@ -3,6 +3,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import utils.getPlatformName
 import views.app.AppView
 
 
@@ -22,7 +23,7 @@ fun main() = application {
     // Crea una ventana
     Window(
         onCloseRequest = ::exitApplication,
-        title = config.AppConfig.APP_NAME,
+        title = config.AppConfig.APP_NAME + getPlatformName(),
         icon = icon
     ) {
         // Carga la vista principal que es el composablee AppView

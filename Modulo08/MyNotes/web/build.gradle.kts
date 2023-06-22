@@ -31,6 +31,9 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
+                // Comunes
+                implementation(project(":common"))
+                // Específicos
                 implementation(compose.web.core)
                 implementation(compose.runtime)
             }
