@@ -16,5 +16,6 @@ pluginManagement {
 
 rootProject.name = "MyNotes"
 
-include(":desktop", ":common")
+// Módulos de la aplicación a incluir
+include(":desktop", ":common", ":web")
 
