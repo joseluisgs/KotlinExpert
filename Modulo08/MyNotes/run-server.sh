@@ -1,1 +1,0 @@
- java -jar ../mynotes-server/build/libs/mynotes-server-all.jar
