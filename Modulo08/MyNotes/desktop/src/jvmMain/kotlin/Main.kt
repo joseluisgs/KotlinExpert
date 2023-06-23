@@ -8,6 +8,7 @@ import views.app.AppView
 
 
 // application es una función de alto nivel que nos permite crear una aplicación de escritorio
+// y usar composables
 fun main() = application {
 
     // Icono de la aplicación
