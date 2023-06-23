@@ -1,9 +1,6 @@
 package es.joseluisgs
 
-import es.joseluisgs.plugins.configureDataBase
-import es.joseluisgs.plugins.configureKoin
-import es.joseluisgs.plugins.configureRouting
-import es.joseluisgs.plugins.configureSerialization
+import es.joseluisgs.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -25,4 +22,5 @@ fun Application.module() {
     configureRouting()
     configureSerialization()
     configureDataBase()
+    configureCors()
 }
