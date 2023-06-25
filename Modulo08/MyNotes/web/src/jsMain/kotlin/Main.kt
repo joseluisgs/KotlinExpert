@@ -2,25 +2,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import models.Note
-import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.css.LineStyle.Companion.Solid
+import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import views.home.HomeViewModel
+import views.theme.AppStyleSheet
 
 
 fun main() {
     // Renderiza y podemos usar composables que se inyectan en el DOM en el elemento con id "root"
     renderComposable(rootElementId = "root") {
+        // Aplicamos los estilos
+        Style(AppStyleSheet)
+
         // Creamos el ViewModel y el Scope
         val scope = rememberCoroutineScope()
         val homeViewModel = remember { HomeViewModel(scope) }
 
+        // Creamos nuestra lista de notas
         println("Renderizando NoteList")
         NoteList(homeViewModel.state.filterNotes ?: emptyList()) { note ->
             println("Click en nota $note")
         }
-
     }
 }
 
@@ -31,21 +34,12 @@ fun NoteList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
     // println("NoteList con ${notes.size} notas")
     Div(
         attrs = {
-            style {
-                display(DisplayStyle.Flex)
-                flexDirection(FlexDirection.Column)
-                alignItems(AlignItems.Center)
-                gap(16.px)
-                width(100.percent)
-                height(100.percent)
-                padding(16.px)
-            }
+            classes(AppStyleSheet.noteList)
         }
     ) {
         // Creamos un composable noteCard
         notes.forEach { note ->
             NoteCard(note, onNoteClick)
-            println(note.title)
         }
     }
 }
@@ -59,31 +53,20 @@ fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
         attrs = {
             onClick { onNoteClick(note) }
             // Por ahora definimos los estilos así, luego será un CSS importado
-            style {
-                display(DisplayStyle.Flex)
-                flexDirection(FlexDirection.Column)
-                width(80.percent)
-                maxHeight(600.px)
-                border(1.px, Solid, Color.black)
-                borderRadius(4.px)
-                cursor("pointer")
-                padding(16.px)
-            }
+            classes(AppStyleSheet.noteCard)
         }
     ) {
         // Título de la nota y tipo
         Div(
             attrs = {
-                style {
-                    display(DisplayStyle.Flex)
-                    flexDirection(FlexDirection.Row)
-                    justifyContent(JustifyContent.SpaceBetween)
-                    alignItems(AlignItems.Center)
-                    width(100.percent)
-                }
+                classes(AppStyleSheet.noteCardHeader)
             }
         ) {
-            H3 { Text(note.title) }
+            H3(
+                attrs = {
+                    classes(AppStyleSheet.noteCardTitle)
+                }
+            ) { Text(note.title) }
             when (note.type) {
                 Note.Type.TEXT -> {
                     Span { Text("\uD83D\uDCC4") }
