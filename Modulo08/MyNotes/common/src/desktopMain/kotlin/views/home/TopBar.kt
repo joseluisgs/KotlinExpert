@@ -21,8 +21,8 @@ fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
         // Bloque de acciones de la topAppBar
         actions = {
             // Son funciones composables, pero podríamos haber usado funciones normales
-            newAction(onCreateClick)
-            filterActions(onFilterClick)
+            NewAction(onCreateClick)
+            FilterActions(onFilterClick)
         },
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.onPrimary
@@ -30,7 +30,7 @@ fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
 }
 
 @Composable
-private fun filterActions(onFilterClick: (Filter) -> Unit) {
+private fun FilterActions(onFilterClick: (Filter) -> Unit) {
     // filtrar una nota
     // para manejar el estado y se recuerde y sea observable el dropdown
     var expanded by remember { mutableStateOf(false) }
@@ -65,7 +65,7 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
 }
 
 @Composable
-private fun newAction(onAddClick: () -> Unit) {
+private fun NewAction(onAddClick: () -> Unit) {
     // Boton para añadir una nota
     IconButton(onClick = {
         logger.debug("New note")

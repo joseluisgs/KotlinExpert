@@ -30,15 +30,15 @@ fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
                 classes(AppStyleSheet.topBarActions)
             }
         ) {
-            newAction(onCreateClick)
-            filterActions(onFilterClick)
+            NewAction(onCreateClick)
+            FilterActions(onFilterClick)
         }
 
     }
 }
 
 @Composable
-private fun filterActions(onFilterClick: (Filter) -> Unit) {
+private fun FilterActions(onFilterClick: (Filter) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
 
     Div(
@@ -84,7 +84,7 @@ private fun filterActions(onFilterClick: (Filter) -> Unit) {
 }
 
 @Composable
-private fun newAction(onAddClick: () -> Unit) {
+private fun NewAction(onAddClick: () -> Unit) {
     Div(
         attrs = {
             onClick { onAddClick() }

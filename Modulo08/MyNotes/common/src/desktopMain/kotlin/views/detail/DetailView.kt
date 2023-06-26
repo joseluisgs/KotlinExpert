@@ -65,7 +65,7 @@ private fun NoteForm(vm: DetailViewModel, nota: Note) {
         OutlinedTextField(
             value = nota.title,
             onValueChange = { vm.update(nota.copy(title = it)) },
-            label = { Text("Titulo") },
+            label = { Text("Título") },
             modifier = Modifier.fillMaxWidth(),
             maxLines = 1
         )

@@ -109,6 +109,7 @@ object AppStyleSheet : StyleSheet() {
         fontSize(25.px)
         fontWeight(700)
         paddingLeft(16.px)
+        flex(1)
     }
 
     val topBarActions by style {
@@ -118,6 +119,11 @@ object AppStyleSheet : StyleSheet() {
         alignItems(AlignItems.Center)
         gap(16.px)
         paddingRight(16.px)
+    }
+
+    val topBarClose by style {
+        cursor("pointer")
+        marginLeft(16.px)
     }
 
     // Estilos de filter
@@ -145,6 +151,17 @@ object AppStyleSheet : StyleSheet() {
         padding(16.px)
         minWidth(150.px)
         cursor("pointer")
+    }
+
+    // Estilos formulario
+    val formDetails by style {
+        display(DisplayStyle.Flex)
+        flexDirection(FlexDirection.Column)
+        gap(16.px)
+        width(70.percent)
+        maxWidth(600.percent)
+        padding(32.px)
+        property("margin", "0 auto")
     }
 
 }
