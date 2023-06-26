@@ -25,6 +25,7 @@ object AppStyleSheet : StyleSheet() {
         borderRadius(4.px)
         cursor("pointer")
         padding(16.px)
+        fontFamily("sans-serif")
     }
 
     // Creamos una clase CSS para el encabezado de la nota
@@ -40,9 +41,15 @@ object AppStyleSheet : StyleSheet() {
     val noteCardTitle by style {
         fontSize(1.5.em)
         fontWeight(700)
-        color(Color.darkslategray)
+        color(Color("#6200EE"))
         lineHeight(1.5.em)
         margin(0.px)
+    }
+
+    val noteMoment by style {
+        fontSize(0.8.em)
+        fontWeight(400)
+        //color(Color.darkgray)
     }
 
 }
