@@ -1,16 +1,25 @@
 package views.home
 
 import androidx.compose.runtime.Composable
+import models.Note
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
+import views.theme.AppStyleSheet
 
 
 @Composable
 fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
-    Div {
+    Div(
+        attrs = {
+            classes(AppStyleSheet.homeView)
+        }
+    ) {
 
         // Top bar
-        HomeTopBar(onFilterClick = vm::onFilterAction)
+        HomeTopBar(
+            onFilterClick = vm::onFilterAction,
+            onCreateClick = { onNoteClick(Note.NEW_NOTE) }
+        )
 
         // Contenido
         Div {
@@ -29,7 +38,12 @@ fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
         }
 
         // Bottom action
-        Div {
+        Div(
+            attrs = {
+                onClick { onNoteClick(Note.NEW_NOTE) }
+                classes(AppStyleSheet.fabButton)
+            },
+        ) {
             Text("+")
         }
     }

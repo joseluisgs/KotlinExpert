@@ -23,7 +23,9 @@ fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
             // Son funciones composables, pero podríamos haber usado funciones normales
             newAction(onCreateClick)
             filterActions(onFilterClick)
-        }
+        },
+        backgroundColor = MaterialTheme.colors.primary,
+        contentColor = MaterialTheme.colors.onPrimary
     )
 }
 

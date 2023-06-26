@@ -38,7 +38,10 @@ fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
 
             // El floatingActionButton es un componente que se pinta en la parte inferior derecha
             floatingActionButton = {
-                FloatingActionButton(onClick = { onNoteClick(Note.NEW_NOTE) }) {
+                FloatingActionButton(
+                    backgroundColor = MaterialTheme.colors.primary,
+                    contentColor = MaterialTheme.colors.onPrimary,
+                    onClick = { onNoteClick(Note.NEW_NOTE) }) {
                     // Icono de añadir
                     Icon(Icons.Default.Add, contentDescription = "Add note")
                 }
