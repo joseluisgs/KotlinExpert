@@ -44,15 +44,7 @@ fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
                     classes(AppStyleSheet.noteCardTitle)
                 }
             ) { Text(note.title) }
-            when (note.type) {
-                Note.Type.TEXT -> {
-                    Span { Text("\uD83D\uDCC4") }
-                }
-
-                Note.Type.AUDIO -> {
-                    Span { Text("\uD83C\uDFA4") }
-                }
-            }
+            NoteIcon(note)
         }
         // Descripción y momento
         P { Text(note.description) }

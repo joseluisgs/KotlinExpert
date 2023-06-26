@@ -3,12 +3,11 @@ package views.home
 import androidx.compose.runtime.*
 import models.Filter
 import models.Note
-import org.jetbrains.compose.web.css.Color
-import org.jetbrains.compose.web.css.color
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Text
 import utils.getPlatformName
+import views.common.Icon
 import views.theme.AppStyleSheet
 
 @Composable
@@ -46,14 +45,13 @@ private fun FilterActions(onFilterClick: (Filter) -> Unit) {
             classes(AppStyleSheet.filterAction)
         }
     ) {
-        Div(
+        Icon(
+            iconName = "filter_list",
             attrs = {
                 onClick { expanded = !expanded }
-                style { color(Color.white) }
+                classes(AppStyleSheet.topBarIcon)
             }
-        ) {
-            Text("\uD83D\uDD0D")
-        }
+        )
         // Si está expandido mostramos el menú
         if (expanded) {
             Div(
@@ -85,11 +83,11 @@ private fun FilterActions(onFilterClick: (Filter) -> Unit) {
 
 @Composable
 private fun NewAction(onAddClick: () -> Unit) {
-    Div(
+    Icon(
+        iconName = "add",
         attrs = {
             onClick { onAddClick() }
+            classes(AppStyleSheet.topBarIcon)
         }
-    ) {
-        Text("\uD83D\uDCDD")
-    }
+    )
 }

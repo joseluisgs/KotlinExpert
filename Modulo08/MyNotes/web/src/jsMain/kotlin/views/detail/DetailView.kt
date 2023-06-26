@@ -8,6 +8,7 @@ import org.jetbrains.compose.web.attributes.selected
 import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.*
+import views.common.Icon
 import views.theme.AppStyleSheet
 
 @Composable
@@ -60,12 +61,13 @@ private fun DetailTopBar(
     ) {
 
         // Botón de cerrar
-        Button(
+        Icon(
+            iconName = "close",
             attrs = {
                 onClick { onClose() }
-                classes(AppStyleSheet.topBarClose)
+                classes(AppStyleSheet.topBarClose, AppStyleSheet.topBarIcon)
             }
-        ) { Text("Cerrar") }
+        )
 
         // Titulo
         H1(attrs = {
@@ -80,18 +82,22 @@ private fun DetailTopBar(
                 classes(AppStyleSheet.topBarActions)
             }
         ) {
-            Button(
+            Icon(
+                iconName = "save",
                 attrs = {
                     onClick { onSave() }
+                    classes(AppStyleSheet.topBarIcon)
                 }
-            ) { Text("Guardar") }
+            )
 
             if (nota.id != Note.NEW_NOTE) {
-                Button(
+                Icon(
+                    iconName = "delete",
                     attrs = {
                         onClick { onDelete() }
+                        classes(AppStyleSheet.topBarIcon)
                     }
-                ) { Text("Borrar") }
+                )
             }
         }
     }

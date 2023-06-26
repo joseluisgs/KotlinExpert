@@ -38,7 +38,7 @@ object AppStyleSheet : StyleSheet() {
     val noteCard by style {
         display(DisplayStyle.Flex)
         flexDirection(FlexDirection.Column)
-        width(80.percent)
+        width(100.percent)
         maxHeight(600.px)
         border(1.px, LineStyle.Solid, Color.darkgray)
         borderRadius(4.px)
@@ -89,6 +89,10 @@ object AppStyleSheet : StyleSheet() {
         fontSize(24.px)
         lineHeight(1.em)
         cursor("pointer")
+        property("box-shadow", "0px 5px 5px 0px rgba(0,0,0,0.4)")
+        self + hover style {
+            backgroundColor(Color("#6200eecc"))
+        }
     }
 
     // Para la top bar
@@ -101,6 +105,7 @@ object AppStyleSheet : StyleSheet() {
         height(64.px)
         backgroundColor(Color("#6200EE")) // Mirar si se puede poner un color de Material
         color(Color.white)
+        property("box-shadow", "0px 0px 4px 0px rgba(0,0,0,0.25)")
     }
 
     val topBarTitle by style {
@@ -122,8 +127,17 @@ object AppStyleSheet : StyleSheet() {
     }
 
     val topBarClose by style {
-        cursor("pointer")
         marginLeft(16.px)
+    }
+
+    val topBarIcon by style {
+        color(Color.white)
+        cursor("pointer")
+        borderRadius(50.percent)
+        padding(12.px)
+        self + hover style {
+            backgroundColor(Color("#ffffff4d"))
+        }
     }
 
     // Estilos de filter
@@ -138,7 +152,7 @@ object AppStyleSheet : StyleSheet() {
         backgroundColor(Color.white)
         borderRadius(4.px)
         position(Position.Absolute)
-        top(16.px)
+        top(48.px)
         right(16.px)
         property("box-shadow", "0px 0px 4px 0px rgba(0,0,0,0.25)")
         property("z-index", "1")
