@@ -1,0 +1,1 @@
+Main y recursos de la aplicación de escritorio.
