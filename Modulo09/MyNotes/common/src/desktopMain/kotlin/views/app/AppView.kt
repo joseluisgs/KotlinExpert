@@ -1,18 +1,17 @@
 package views.app
 
 import androidx.compose.runtime.*
-import mu.KotlinLogging
 import routes.Route
 import views.detail.DetailView
 import views.detail.DetailViewModel
 import views.home.HomeView
 import views.home.HomeViewModel
 
-private val logger = KotlinLogging.logger {}
+// private val logger = KotlinLogging.logger {}
 
 @Composable
 fun AppView() {
-    logger.debug { "AppView" }
+    // logger.debug { "AppView" }
     // Lo primero es almacenar la ruta actual, y lo cargamos en el HomeView
     var route by remember { mutableStateOf<Route>(Route.Home) }
     // Creamos el scope para las corrutinas y viewModel
@@ -20,7 +19,7 @@ fun AppView() {
 
     // Rutas de navegación, constantes y rutas
     route.let {
-        logger.debug { "Route: $it" }
+        // logger.debug { "Route: $it" }
         when (it) {
             // Cuando es Home, cargamos el HomeView y si pulsamos el botón de crear, cambiamos la ruta a Detail con id -1
             is Route.Home -> HomeView(

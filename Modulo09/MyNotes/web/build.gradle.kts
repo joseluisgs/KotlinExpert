@@ -6,11 +6,6 @@ plugins {
 group = "dev.joseluisgs"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    google()
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-}
 
 // Variante de compilación con Explorador
 kotlin {

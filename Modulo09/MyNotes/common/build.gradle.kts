@@ -18,7 +18,7 @@ version = "1.0-SNAPSHOT"
 kotlin {
     // Versión para compilación de Kotlin, esto es para usar desktop como dependencias comunes y no JVM
     jvm("desktop") {
-        jvmToolchain(17) // Java 17
+        jvmToolchain(11) // Java 11 Si quieres Android
         withJava()
     }
     // JS
@@ -42,7 +42,7 @@ kotlin {
                 implementation(compose.materialIconsExtended)
 
                 // Logger common
-                implementation("io.github.microutils:kotlin-logging:$logging_version")
+                //implementation("io.github.microutils:kotlin-logging:$logging_version")
 
                 // Kotlin data time
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
@@ -66,7 +66,7 @@ kotlin {
             dependencies {
 
                 // Salida del logger desktop
-                implementation("ch.qos.logback:logback-classic:$logback_version")
+                //implementation("ch.qos.logback:logback-classic:$logback_version")
 
                 // Ktor client para desktop
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")

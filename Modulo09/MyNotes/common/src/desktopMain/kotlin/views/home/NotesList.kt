@@ -19,9 +19,8 @@ import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import models.Note
-import mu.KotlinLogging
 
-private val logger = KotlinLogging.logger {}
+// private val logger = KotlinLogging.logger {}
 
 // Lista de notas
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class) // Para los eventos de ratón
@@ -70,13 +69,13 @@ private fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
             .onPointerEvent(PointerEventType.Press) {
                 when {
                     it.buttons.isPrimaryPressed -> {
-                        logger.debug { "Has pulsado izquierdo en la nota $note" }
+                        // logger.debug { "Has pulsado izquierdo en la nota $note" }
                         // Abrimos el detalle
                         onNoteClick(note)
                     }
 
                     it.buttons.isSecondaryPressed -> {
-                        logger.debug { "Has pulsado derecho en la nota $note" }
+                        // logger.debug { "Has pulsado derecho en la nota $note" }
                         // Abrimos el dialogo
                         showDialog = true
                         selectedNote = note

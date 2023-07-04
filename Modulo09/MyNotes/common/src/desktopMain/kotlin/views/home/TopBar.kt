@@ -8,10 +8,9 @@ import androidx.compose.runtime.*
 import config.AppConfig
 import models.Filter
 import models.Note
-import mu.KotlinLogging
 import utils.getPlatformName
 
-private val logger = KotlinLogging.logger {}
+// private val logger = KotlinLogging.logger {}
 
 // Como debemos comunicarnos con fuera vamos a crear una lambda para subir el evento
 @Composable
@@ -68,7 +67,7 @@ private fun FilterActions(onFilterClick: (Filter) -> Unit) {
 private fun NewAction(onAddClick: () -> Unit) {
     // Boton para añadir una nota
     IconButton(onClick = {
-        logger.debug("New note")
+        // logger.debug("New note")
         onAddClick()
     }) {
         Icon(

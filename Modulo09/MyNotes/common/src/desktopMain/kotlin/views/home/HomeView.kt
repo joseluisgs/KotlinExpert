@@ -11,9 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import models.Note
-import mu.KotlinLogging
 
-private val logger = KotlinLogging.logger {}
+// private val logger = KotlinLogging.logger {}
 
 // Función composable que recibe un ViewModel
 // y una función lambda para saber como actuar con el clic en base a su id que recibe
@@ -21,7 +20,7 @@ private val logger = KotlinLogging.logger {}
 
 @Composable
 fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
-    logger.debug { "HomeView" }
+    // logger.debug { "HomeView" }
 
     // Estilo de Material
     MaterialTheme {
