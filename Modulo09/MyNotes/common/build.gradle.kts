@@ -1,15 +1,13 @@
 val ktor_version: String by rootProject.project
 val datetime_version: String by rootProject.project
-val logging_version: String by rootProject.project
-val logback_version: String by rootProject.project
 val coroutines_version: String by rootProject.project
-val sqldelight_version: String by rootProject.project
 val cache_version: String by rootProject.project
 
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     kotlin("plugin.serialization")
+    id("com.android.library")
 }
 
 group = "dev.joseluisgs"
@@ -19,12 +17,12 @@ kotlin {
     // Versión para compilación de Kotlin, esto es para usar desktop como dependencias comunes y no JVM
     jvm("desktop") {
         jvmToolchain(11) // Java 11 Si quieres Android
-        withJava()
     }
     // JS
     js(IR) {
         browser()
     }
+    android()
 
     // SourceSet, cada uno en su carpeta dentro de src
     sourceSets {
@@ -40,9 +38,6 @@ kotlin {
 
                 // Para usar iconos
                 implementation(compose.materialIconsExtended)
-
-                // Logger common
-                //implementation("io.github.microutils:kotlin-logging:$logging_version")
 
                 // Kotlin data time
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
@@ -65,13 +60,11 @@ kotlin {
         val desktopMain by getting {
             dependencies {
 
-                // Salida del logger desktop
-                //implementation("ch.qos.logback:logback-classic:$logback_version")
-
                 // Ktor client para desktop
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
             }
         }
+        val desktopTest by getting
 
         // Esto pata js web
         val jsMain by getting {
@@ -85,5 +78,29 @@ kotlin {
         }
         // Para usar tests
         val jsTest by getting
+
+        // Esto es para Android
+        val androidMain by getting {
+            dependencies {
+                // Ktor client para Android
+                implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+            }
+        }
+        // Para usar tests
+        val androidTest by getting
+    }
+}
+
+// Para android
+android {
+    compileSdk = 33
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 33
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }

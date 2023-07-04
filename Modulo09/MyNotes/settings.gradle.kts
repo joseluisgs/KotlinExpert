@@ -14,6 +14,8 @@ pluginManagement {
         //id("org.jetbrains.kotlin.android") version "1.8.21"
         kotlin("android").version(extra["kotlin.version"] as String)
         id("com.android.application").version(extra["agp.version"] as String)
+        // Android Commmons
+        id("com.android.library").version(extra["agp.version"] as String)
 
 
     }

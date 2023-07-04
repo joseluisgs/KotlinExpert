@@ -10,8 +10,6 @@ import models.Filter
 import models.Note
 import utils.getPlatformName
 
-// private val logger = KotlinLogging.logger {}
-
 // Como debemos comunicarnos con fuera vamos a crear una lambda para subir el evento
 @Composable
 fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
@@ -67,7 +65,6 @@ private fun FilterActions(onFilterClick: (Filter) -> Unit) {
 private fun NewAction(onAddClick: () -> Unit) {
     // Boton para añadir una nota
     IconButton(onClick = {
-        // logger.debug("New note")
         onAddClick()
     }) {
         Icon(

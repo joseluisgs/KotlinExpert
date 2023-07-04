@@ -7,11 +7,8 @@ import views.detail.DetailViewModel
 import views.home.HomeView
 import views.home.HomeViewModel
 
-// private val logger = KotlinLogging.logger {}
-
 @Composable
 fun AppView() {
-    // logger.debug { "AppView" }
     // Lo primero es almacenar la ruta actual, y lo cargamos en el HomeView
     var route by remember { mutableStateOf<Route>(Route.Home) }
     // Creamos el scope para las corrutinas y viewModel

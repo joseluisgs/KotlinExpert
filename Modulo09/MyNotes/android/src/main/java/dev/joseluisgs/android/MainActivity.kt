@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import utils.getPlatformName
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         // Escribimos compose
         setContent {
             MaterialTheme {
-                Text("Hello world!")
+                Text("Hello world! ${getPlatformName()}")
             }
         }
     }

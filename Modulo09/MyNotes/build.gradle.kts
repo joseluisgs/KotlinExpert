@@ -17,5 +17,7 @@ plugins {
     // android compose
     kotlin("android") apply false
     id("com.android.application") apply false
+    // Android Commmons
+    id("com.android.library") apply false
 }
 

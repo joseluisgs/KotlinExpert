@@ -15,8 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import models.Note
 
-// private val logger = KotlinLogging.logger {}
-
 @Composable
 fun DetailView(
     vm: DetailViewModel,

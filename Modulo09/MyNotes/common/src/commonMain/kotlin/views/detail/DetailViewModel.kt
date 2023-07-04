@@ -11,7 +11,6 @@ import repository.NotesRepository
 
 // View Model de la vista Detail
 
-// private val logger = KotlinLogging.logger {}
 class DetailViewModel(private val scope: CoroutineScope, private val idNote: Long) {
     var state by mutableStateOf(UiState())
         private set
@@ -25,7 +24,6 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
 
     // Carga una nota del servicio
     private fun loadNote() {
-        // logger.debug { "load Note" }
         scope.launch {
             state = UiState(isLoading = true)
             val note = NotesRepository.getById(idNote)
@@ -35,7 +33,6 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
 
     // Guarda una nota en el servicio, o la actualiza
     fun save() {
-        // logger.debug { "save Note" }
         scope.launch {
             var note = state.note
             state = state.copy(isLoading = true)
@@ -51,13 +48,11 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
 
     // indica que la nota se ha actualizado para recogerlo en la vista
     fun update(note: Note) {
-        // logger.debug { "update Note" }
         state = state.copy(note = note)
     }
 
     // Borra una nota del servicio
     fun delete() {
-        // logger.debug { "delete Note" }
         scope.launch {
             state = state.copy(isLoading = true)
             NotesRepository.delete(state.note.id)
