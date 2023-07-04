@@ -18,6 +18,7 @@ Ejemplos y tutoriales de la Formación Kotlin Expert. Full Stack en Kotlin
   - [Módulo 6: Ktor](#módulo-6-ktor)
   - [Módulo 7: Kotlin Multiplatform](#módulo-7-kotlin-multiplatform)
   - [Módulo 8: Kotlin JS](#módulo-8-kotlin-js)
+  - [Módulo 9: Android con KMP](#módulo-9-android-con-kmp)
   - [Repositorios de proyectos](#repositorios-de-proyectos)
   - [Autor](#autor)
     - [Contacto](#contacto)
@@ -39,30 +40,24 @@ lenguaje y aplicarlo en vuestro día a día.
 ![imagen](./images/logo-grande-png.png)
 
 ## Módulo 1: Bienvenida
-
 Bienvenida. Instalación de los entornos de desarrollo. Un paseo por el curso
 
 ## Módulo 2: Conceptos básicos de Kotlin
-
 Veremos las bases del lenguaje Kotlin, desde cómo crear tu primer proyecto hasta cómo lanzar tu primer programa, pasando
 por el aprendizaje de los conceptos de cualquier lenguaje de programación:
 
 Variables, clases, interfaces, tipos, nulidad, funciones, lambdas...
 
 ## Módulo 3: Concurrencia en Kotlin con Coroutines
-
 Usaremos el uso de las corrutinas para el manejo de la concurrencia y con ello: funciones suspend, context, dispachers,scope. También usaremos secuencias, canales y flujos.
 
 ## Módulo 4: Kotlin avanzando
-
 En este módulo veremos aspectos avanzados o más específicos de Kotlin a nivel de lenguaje y expresividad como son funciones infijas, locales, sobrecarga de operadores, tipos avanzados, genéricos, varianza, lambdas con receivers, scope functions, import alias o type alias... 
 
 ## Módulo 5: Compatibilidad con Java
-
 En este módulo se trabajará la compatibilidad de Kotlin con Java: funciones de alto nivel, funciones de extensión, sobrecarga, Objects, lambdas, etc.
 
 ## Módulo 6: Ktor
-
 En este módulo veremos los fundamentos de Ktor para crear aplicaciones web en Kotlin. Veremos cómo crear un servidor web para desarrollar una API REST para nuestras notas y cambiaremos el cliente para que consuma este servicio.
 
 Como ampliación, se ha creado una cache reactiva con SQLDelight para el cliente.
@@ -74,6 +69,9 @@ En este módulo veremos los fundamentos de [Kotlin Multiplatform](https://kotlin
 
 ## Módulo 8: Kotlin JS
 En este módulo veremos los fundamentos de [Kotlin JS](https://kotlinlang.org/docs/js-overview.html) para crear aplicaciones web en Kotlin. Veremos cómo configurar nuestro proyecto, compartir código con el cliente y cómo crear una aplicación web con Kotlin JS y [Compose web](https://github.com/JetBrains/compose-multiplatform/#web).
+
+## Módulo 9: Android con KMP
+En este módulo veremos los fundamentos de [Kotlin Multiplatform Mobile](https://kotlinlang.org/docs/multiplatform.html) y nos centraremos en pasar nuestra aplicación de notas a Android con KMM. Veremos cómo configurar nuestro proyecto, compartir código con el cliente y cómo crear una aplicación Android con KMM y ajustar la navegación de la aplicación.
 
 ## Repositorios de proyectos
 El repositorio original del proyecto se puede encontrar [aquí](https://github.com/DevExperto/kotlin-expert).

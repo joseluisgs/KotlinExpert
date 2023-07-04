@@ -36,6 +36,8 @@ fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
     ) {
         // Recorre la colección de datos y creamos las celdas
         items(notes) { note ->
+            NoteCard(note = note, onNoteClick = { onNoteClick(note) })
+        }
 
             // Para mostrar el dialogo
             var showDialog by mutableStateOf(false)
