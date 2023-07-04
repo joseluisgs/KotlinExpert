@@ -56,7 +56,7 @@ private fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
             .fillMaxWidth(0.8f) // Que ocupe el 80% del ancho de la pantalla
             .shadow(elevation = 4.dp) // Añade una sombra de 4dp a cada lado
             // change mouse cursor to pointer when hovering over the cardAñade un icono de micrófono al cursor cuando pasa por encima de la celda
-            .pointerHoverIcon(icon = PointerIconDefaults.Hand, overrideDescendants = true)
+            .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
 
             // Cuando hagamos click en la celda, se muestra el dialogo con la nota seleccionada
             // detecta solo un clic, pero no los dos botones
