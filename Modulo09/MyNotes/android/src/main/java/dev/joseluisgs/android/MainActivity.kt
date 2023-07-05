@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import org.lighthousegames.logging.logging
-import utils.getPlatformName
+import views.app.AppView
 
 private val logger = logging()
 
@@ -22,9 +21,9 @@ class MainActivity : ComponentActivity() {
         // Escribimos compose
         setContent {
             MaterialTheme {
-                Text("Hello world! ${getPlatformName()}")
+                //Text("Hello world! ${getPlatformName()}")
+                AppView()
             }
         }
     }
-
 }

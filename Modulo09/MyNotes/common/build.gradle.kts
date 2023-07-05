@@ -18,13 +18,17 @@ version = "1.0-SNAPSHOT"
 kotlin {
     // Versión para compilación de Kotlin, esto es para usar desktop como dependencias comunes y no JVM
     jvm("desktop") {
-        jvmToolchain(11) // Java 11 Si quieres Android
+        jvmToolchain(11) // Java 11 Si quieres Android y Desktop
     }
     // JS
     js(IR) {
         browser()
     }
-    android()
+    // Android
+    android {
+        // Configuración de Android
+        jvmToolchain(11) // Java 11 Si quieres Android y Desktop
+    }
 
     // SourceSet, cada uno en su carpeta dentro de src
     sourceSets {
@@ -62,12 +66,23 @@ kotlin {
         }
         val commonTest by getting
 
+        // Esto es para los que cmparten una logica KMP
+        // Se crea porque no existe, y se le añade dependencia de commonMain
+        val commonComposeKmpMain by creating {
+            dependsOn(commonMain)
+        }
+
         // Esto es para Desktop
         val desktopMain by getting {
             dependencies {
+                // Ahora le decimos que depende de commonMain
+                dependsOn(commonComposeKmpMain)
 
                 // Ktor client para desktop
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+
+                // Corrutinas Swing Desktop
+                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutines_version")
 
                 // Logger JVV
                 implementation("ch.qos.logback:logback-classic:$logback_version")
@@ -92,8 +107,14 @@ kotlin {
         // Esto es para Android
         val androidMain by getting {
             dependencies {
+                // Ahora le decimos que depende de commonMain
+                dependsOn(commonComposeKmpMain)
+
                 // Ktor client para Android
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+
+                // Corrutinas para Android
+                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
             }
         }
         // Para usar tests
@@ -110,7 +131,7 @@ android {
         targetSdk = 33
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }

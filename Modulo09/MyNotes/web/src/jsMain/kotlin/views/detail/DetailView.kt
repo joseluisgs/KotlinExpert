@@ -21,7 +21,7 @@ fun DetailView(
     // onSave: () -> Unit, // No lo usamos, lo cogemos del ViewModel
     // onDelete: () -> Unit // No lo usamos, lo cogemos del ViewModel
 ) {
-    logger.info { "DetailView de la nota ${vm.state.note}" }
+    logger.info { "Init DetailView de la nota ${vm.state.note}" }
 
     // Ya tenemos la nota en el ViewModel, ya es mutableState
     val nota = vm.state.note

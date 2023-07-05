@@ -1,6 +1,7 @@
 package views.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,7 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.input.pointer.*
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import models.Note
@@ -42,7 +44,6 @@ fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
 @OptIn(ExperimentalComposeUiApi::class)
 private fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
     // Para mostrar el dialogo
-    var showDialog by mutableStateOf(false)
     var selectedNote by mutableStateOf<Note?>(null)
 
     // Crea una celda con el item que recibe del tipo Card:
@@ -57,37 +58,8 @@ private fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
 
             // Cuando hagamos click en la celda, se muestra el dialogo con la nota seleccionada
             // detecta solo un clic, pero no los dos botones
-            /*.clickable {
-                        // println("Has pulsado en la nota $note")
-                        showDialog = true
-                        selectedNote = note
-                    }*/
-            // Para el cuadro de Alerta si es pulsado dependiendo del boton
-            .onPointerEvent(PointerEventType.Press) {
-                when {
-                    it.buttons.isPrimaryPressed -> {
-                        // Abrimos el detalle
-                        onNoteClick(note)
-                    }
-
-                    it.buttons.isSecondaryPressed -> {
-                        // Abrimos el dialogo
-                        showDialog = true
-                        selectedNote = note
-                    }
-                }
-            }
+            .clickable { onNoteClick(note) },
     ) {
-        // Para el cuadro de Alerta si es pulsado
-        if (showDialog) {
-            selectedNote?.let {
-                NoteAlert(note = it,
-                    showDialog = showDialog,
-                    onConfirm = { showDialog = false },
-                    onDismiss = { showDialog = false }
-                )
-            }
-        }
 
         // Muestra el item que recibe en formato Columna, uno debajo de otro
         Column(

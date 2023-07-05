@@ -1,3 +1,5 @@
+@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
+
 package views.detail
 
 import androidx.compose.foundation.layout.Box
@@ -14,6 +16,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import models.Note
+import org.lighthousegames.logging.logging
+
+private val logger = logging()
 
 @Composable
 fun DetailView(
@@ -22,7 +27,7 @@ fun DetailView(
     // onSave: () -> Unit, // No lo usamos, lo cogemos del ViewModel
     // onDelete: () -> Unit // No lo usamos, lo cogemos del ViewModel
 ) {
-    // logger.debug { "DetailView ${vm.state.note.id}" }
+    logger.info { "Init DetailView ${vm.state.note.id}" }
 
     // Ya tenemos la nota en el ViewModel, ya es mutableState
     val nota = vm.state.note

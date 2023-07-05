@@ -1,7 +1,9 @@
 <!-- This is unmodified by default. We'll override it for tests -->
-<!-- Permitimos la navegación por http en localhost -->
+<!-- Permitimos la navegación por http en localhost
+    Recuerda poner la IP de tu servidor
+-->
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">10.0.2.2</domain>
+        <domain includeSubdomains="true">192.168.1.140</domain>
     </domain-config>
 </network-security-config>

@@ -1,3 +1,5 @@
+@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
+
 package views.home
 
 import androidx.compose.foundation.layout.Box
@@ -11,13 +13,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import models.Note
+import org.lighthousegames.logging.logging
 
 // Función composable que recibe un ViewModel
 // y una función lambda para saber como actuar con el clic en base a su id que recibe
 // un id de nota y no devuelve nada
 
+private val logger = logging()
+
 @Composable
 fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
+
+    logger.info { "Init HomeView" }
+
     // Estilo de Material
     MaterialTheme {
         // Componente que nos da una estructura donde podemos añadir otros componentes de Material

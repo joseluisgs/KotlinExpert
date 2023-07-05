@@ -36,7 +36,7 @@ object NotesRepository {
 
     }
 
-    private suspend fun fetchNotes() {
+    suspend fun fetchNotes() {
         logger.debug { "fetchNotes" }
         // Llamamos a la API y obtenemos las notas
         val response = notesApi.get(NOTES_URL)
@@ -46,6 +46,7 @@ object NotesRepository {
         notes.forEach {
             notesCache.put(it.id, it)
         }
+        logger.debug { "fetchNotes(${notes.size}: $notes" }
     }
 
     private suspend fun rememoveAll() {

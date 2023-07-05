@@ -1,3 +1,4 @@
 package data.api
 
-actual const val NOTES_URL: String = "http://10.10.2.2:8080/notes"
+// Recuerda poner la IP de tu ordenador
+actual const val NOTES_URL: String = "http://192.168.1.140:8080/notes"
