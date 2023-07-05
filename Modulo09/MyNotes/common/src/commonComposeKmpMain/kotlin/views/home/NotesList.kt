@@ -9,9 +9,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -43,9 +40,6 @@ fun NotesList(notes: List<Note>, onNoteClick: (Note) -> Unit) {
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
 private fun NoteCard(note: Note, onNoteClick: (Note) -> Unit) {
-    // Para mostrar el dialogo
-    var selectedNote by mutableStateOf<Note?>(null)
-
     // Crea una celda con el item que recibe del tipo Card:
     // https://devexperto.com/cards-jetpack-compose/
     Card(

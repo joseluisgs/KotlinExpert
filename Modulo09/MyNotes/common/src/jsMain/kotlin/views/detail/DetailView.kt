@@ -15,12 +15,7 @@ import views.theme.AppStyleSheet
 private val logger = logging()
 
 @Composable
-fun DetailView(
-    vm: DetailViewModel,
-    onClose: () -> Unit,
-    // onSave: () -> Unit, // No lo usamos, lo cogemos del ViewModel
-    // onDelete: () -> Unit // No lo usamos, lo cogemos del ViewModel
-) {
+actual fun DetailView(vm: DetailViewModel, onClose: () -> Unit) {
     logger.info { "Init DetailView de la nota ${vm.state.note}" }
 
     // Ya tenemos la nota en el ViewModel, ya es mutableState

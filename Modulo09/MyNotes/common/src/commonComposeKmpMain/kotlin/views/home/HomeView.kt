@@ -22,7 +22,7 @@ import org.lighthousegames.logging.logging
 private val logger = logging()
 
 @Composable
-fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
+actual fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
 
     logger.info { "Init HomeView" }
 

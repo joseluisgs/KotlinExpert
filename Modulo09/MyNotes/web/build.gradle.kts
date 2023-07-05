@@ -29,7 +29,7 @@ kotlin {
                 // Comunes
                 implementation(project(":common"))
                 // Específicos para JS
-                implementation(compose.web.core)
+                // implementation(compose.web.core)
                 implementation(compose.runtime)
             }
         }

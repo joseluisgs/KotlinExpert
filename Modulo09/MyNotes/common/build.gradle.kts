@@ -94,8 +94,7 @@ kotlin {
         // Esto pata js web
         val jsMain by getting {
             dependencies {
-                // implementation(compose.web.core)
-                // implementation(compose.runtime)
+                implementation(compose.html.core)
 
                 // Ktor client para js
                 implementation("io.ktor:ktor-client-js:$ktor_version")
