@@ -5,7 +5,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.runtime.*
-import config.AppConfig
 import models.Filter
 import models.Note
 import utils.getPlatformName
@@ -14,7 +13,7 @@ import utils.getPlatformName
 @Composable
 fun HomeTopBar(onFilterClick: (Filter) -> Unit, onCreateClick: () -> Unit) {
     TopAppBar(
-        title = { Text("${AppConfig.APP_TITLE} ${getPlatformName()}") },
+        title = { Text("My Notes ${getPlatformName()}") },
         // Bloque de acciones de la topAppBar
         actions = {
             // Son funciones composables, pero podríamos haber usado funciones normales

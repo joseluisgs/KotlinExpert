@@ -1,5 +1,6 @@
 package repository
 
+import data.api.NOTES_URL
 import data.api.provideNotesRestClient
 import data.cache.provideNotesCacheClient
 import io.ktor.client.call.*
@@ -14,7 +15,7 @@ import models.Note
 import org.lighthousegames.logging.logging
 
 // Esta es la URL de la API de notas desde el cliente
-private val NOTES_URL = "http://localhost:8080/notes" //config.AppConfig.NOTES_API_URL + "/notes"
+
 
 private val logger = logging()
 
@@ -24,7 +25,7 @@ object NotesRepository {
     val notesApi = provideNotesRestClient()
 
     init {
-        logger.info { "Repo Init" }
+        logger.info { "NotesRepository Init" }
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch {
             // Limpiamos la base de datos
@@ -36,6 +37,7 @@ object NotesRepository {
     }
 
     private suspend fun fetchNotes() {
+        logger.debug { "fetchNotes" }
         // Llamamos a la API y obtenemos las notas
         val response = notesApi.get(NOTES_URL)
         val notes = response.body<List<Note>>()
@@ -47,10 +49,12 @@ object NotesRepository {
     }
 
     private suspend fun rememoveAll() {
+        logger.debug { "removeAll" }
         notesCache.invalidateAll()
     }
 
     suspend fun getAll(): Flow<List<Note>> {
+        logger.debug { "getAll" }
         // Si no hay notas en la base de datos las obtenemos de la API
         if (notesCache.asMap().isEmpty()) {
             fetchNotes()
@@ -62,11 +66,13 @@ object NotesRepository {
 
     // Estudiar lo de cambiar el tipo de retorno a Flow
     suspend fun getById(id: Long): Note {
+        logger.debug { "getById" }
         // Devolvemos de la cache
         return notesCache.get(id)!!
     }
 
     suspend fun save(note: Note): Note {
+        logger.debug { "save" }
         // Llamamos a la API
         val response = notesApi.post(NOTES_URL) {
             setBody(note)
@@ -80,6 +86,7 @@ object NotesRepository {
     }
 
     suspend fun update(note: Note): Note {
+        logger.debug { "update" }
         // Llamamos a la API
         val response = notesApi.put(NOTES_URL) {
             setBody(note)
@@ -93,6 +100,7 @@ object NotesRepository {
     }
 
     suspend fun delete(id: Long): Boolean {
+        logger.debug { "delete" }
         // Llamamos a la API
         val response = notesApi.delete("$NOTES_URL/$id")
 
