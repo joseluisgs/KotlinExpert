@@ -8,8 +8,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import models.Filter
 import models.Note
+import org.lighthousegames.logging.logging
 import repository.NotesRepository
 
+private val logger = logging()
 
 class HomeViewModel(private val scope: CoroutineScope) {
     // Vamos a usar MutableState de Compose
@@ -17,6 +19,8 @@ class HomeViewModel(private val scope: CoroutineScope) {
         private set
 
     init {
+        logger.info { "Init HomeViewModel" }
+
         // Nada más cargar el viewModel, cargamos las notas
         // Cargo las notas
         loadNotes()
@@ -24,6 +28,7 @@ class HomeViewModel(private val scope: CoroutineScope) {
 
 
     private fun loadNotes() {
+        logger.debug { "Cargando notas" }
         scope.launch(CoroutineName("Corrutina loadNotes ")) {
             state = UiState(isLoading = true)
 
@@ -40,6 +45,7 @@ class HomeViewModel(private val scope: CoroutineScope) {
     }
 
     fun onFilterAction(filter: Filter) {
+        logger.debug { "Filtrando notas" }
         // Actualizamos el estado
         state = state.copy(filter = filter)
     }

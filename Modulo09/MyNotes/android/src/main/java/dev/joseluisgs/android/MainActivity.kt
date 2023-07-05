@@ -5,9 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import org.lighthousegames.logging.logging
 import utils.getPlatformName
 
+private val logger = logging()
+
 class MainActivity : ComponentActivity() {
+
+    init {
+        logger.info { "Init Android Client" }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,4 +26,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

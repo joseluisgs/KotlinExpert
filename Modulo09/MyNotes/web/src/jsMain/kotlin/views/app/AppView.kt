@@ -1,14 +1,20 @@
 package views.app
 
 import androidx.compose.runtime.*
+import org.lighthousegames.logging.logging
 import routes.Route
 import views.detail.DetailView
 import views.detail.DetailViewModel
 import views.home.HomeView
 import views.home.HomeViewModel
 
+private val logger = logging()
+
 @Composable
 fun AppView() {
+
+    logger.info { "Init App View" }
+
     // Lo primero es almacenar la ruta actual, y lo cargamos en el HomeView
     var route by remember { mutableStateOf<Route>(Route.Home) }
     // Creamos el scope para las corrutinas y viewModel

@@ -8,8 +8,11 @@ import org.jetbrains.compose.web.attributes.selected
 import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.*
+import org.lighthousegames.logging.logging
 import views.common.Icon
 import views.theme.AppStyleSheet
+
+private val logger = logging()
 
 @Composable
 fun DetailView(
@@ -18,7 +21,7 @@ fun DetailView(
     // onSave: () -> Unit, // No lo usamos, lo cogemos del ViewModel
     // onDelete: () -> Unit // No lo usamos, lo cogemos del ViewModel
 ) {
-    println("DetailView de la nota ${vm.state.note}")
+    logger.info { "DetailView de la nota ${vm.state.note}" }
 
     // Ya tenemos la nota en el ViewModel, ya es mutableState
     val nota = vm.state.note

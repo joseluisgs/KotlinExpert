@@ -2,6 +2,8 @@ val ktor_version: String by rootProject.project
 val datetime_version: String by rootProject.project
 val coroutines_version: String by rootProject.project
 val cache_version: String by rootProject.project
+val logger_version: String by rootProject.project
+val logback_version: String by rootProject.project
 
 plugins {
     kotlin("multiplatform")
@@ -52,6 +54,10 @@ kotlin {
 
                 // Cache4k
                 implementation("io.github.reactivecircus.cache4k:cache4k:$cache_version")
+
+                // Logger
+                api("org.lighthousegames:logging:$logger_version")
+
             }
         }
         val commonTest by getting
@@ -62,6 +68,10 @@ kotlin {
 
                 // Ktor client para desktop
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+
+                // Logger JVV
+                implementation("ch.qos.logback:logback-classic:$logback_version")
+
             }
         }
         val desktopTest by getting

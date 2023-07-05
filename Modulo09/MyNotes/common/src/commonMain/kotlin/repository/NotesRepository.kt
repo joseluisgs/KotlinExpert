@@ -11,9 +11,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import models.Note
+import org.lighthousegames.logging.logging
 
 // Esta es la URL de la API de notas desde el cliente
 private val NOTES_URL = "http://localhost:8080/notes" //config.AppConfig.NOTES_API_URL + "/notes"
+
+private val logger = logging()
 
 object NotesRepository {
     // Lo trasformamos en un flujo, esta vez de listas de notas
@@ -21,6 +24,7 @@ object NotesRepository {
     val notesApi = provideNotesRestClient()
 
     init {
+        logger.info { "Repo Init" }
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch {
             // Limpiamos la base de datos

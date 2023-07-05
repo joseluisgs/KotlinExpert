@@ -4,11 +4,15 @@ import androidx.compose.runtime.Composable
 import models.Note
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
+import org.lighthousegames.logging.logging
 import views.theme.AppStyleSheet
 
+private val logger = logging()
 
 @Composable
 fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
+    logger.info { "Init Home View" }
+
     Div(
         attrs = {
             classes(AppStyleSheet.homeView)
