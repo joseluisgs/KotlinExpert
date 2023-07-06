@@ -1,4 +1,4 @@
-package views.detail
+package views.screens.detail
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

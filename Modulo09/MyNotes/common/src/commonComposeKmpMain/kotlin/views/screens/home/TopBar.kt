@@ -1,4 +1,4 @@
-package views.home
+package views.screens.home
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons

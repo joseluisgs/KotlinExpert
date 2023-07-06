@@ -5,10 +5,10 @@ package views.app
 import androidx.compose.runtime.*
 import org.lighthousegames.logging.logging
 import routes.Route
-import views.detail.DetailView
-import views.detail.DetailViewModel
-import views.home.HomeView
-import views.home.HomeViewModel
+import views.screens.detail.DetailView
+import views.screens.detail.DetailViewModel
+import views.screens.home.HomeView
+import views.screens.home.HomeViewModel
 
 private val logger = logging()
 
