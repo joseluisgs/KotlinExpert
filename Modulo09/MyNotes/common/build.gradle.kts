@@ -4,6 +4,7 @@ val coroutines_version: String by rootProject.project
 val cache_version: String by rootProject.project
 val logger_version: String by rootProject.project
 val logback_version: String by rootProject.project
+val voyager_version: String by rootProject.project
 
 plugins {
     kotlin("multiplatform")
@@ -61,6 +62,9 @@ kotlin {
 
                 // Logger
                 api("org.lighthousegames:logging:$logger_version")
+
+                // Voyager para navegación
+                implementation("cafe.adriel.voyager:voyager-navigator:$voyager_version")
 
             }
         }
