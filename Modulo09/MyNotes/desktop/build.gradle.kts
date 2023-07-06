@@ -11,7 +11,7 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     jvm {
-        jvmToolchain(17) // Java 17
+        jvmToolchain(11) // Java 17
         withJava()
     }
     sourceSets {
