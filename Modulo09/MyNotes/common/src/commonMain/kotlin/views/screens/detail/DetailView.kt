@@ -1,7 +1,7 @@
 package views.screens.detail
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -20,7 +20,7 @@ data class DetailScreen(val idNote: Long) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         // Le cargamos la vista
         DetailView(
-            vm = DetailViewModel(scope = rememberCoroutineScope(), idNote = idNote),
+            vm = rememberScreenModel { DetailViewModel(idNote) },
             onClose = {
                 logger.debug { "Navigator: Details -> Home" }
                 navigator.pop()

@@ -85,8 +85,8 @@ kotlin {
                 // Ktor client para desktop
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
 
-                // Corrutinas Swing Desktop
-                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutines_version")
+                // Corrutinas Swing Desktop necesarias para Voyager y su viewModelScrren porque usa Main Scope
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:$coroutines_version")
 
                 // Logger JVV
                 implementation("ch.qos.logback:logback-classic:$logback_version")
@@ -116,8 +116,8 @@ kotlin {
                 // Ktor client para Android
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
 
-                // Corrutinas para Android
-                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+                // Corrutinas para Android para evitar problemas con el main scope de Voyager en Android (no es necesario aquí)
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
             }
         }
         // Para usar tests

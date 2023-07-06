@@ -1,7 +1,7 @@
 package views.screens.home
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -19,9 +19,9 @@ object HomeScreen : Screen {
     override fun Content() {
         // Recuperamos el navigator
         val navigator = LocalNavigator.currentOrThrow
-        // Le cargamos la vista
+        // Le cargamos la vista, y la recordamos
         HomeView(
-            vm = HomeViewModel(rememberCoroutineScope()),
+            vm = rememberScreenModel { HomeViewModel() },
             onNoteClick = { idNote ->
                 logger.debug { "Navigator: Home -> Details con Nota id: $idNote" }
                 navigator.push(DetailScreen(idNote))

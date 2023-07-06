@@ -3,18 +3,21 @@ package views.screens.detail
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import kotlinx.coroutines.CoroutineScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.coroutineScope
 import kotlinx.coroutines.launch
 import models.Note
 import org.lighthousegames.logging.logging
-
 import repository.NotesRepository
 
 // View Model de la vista Detail
 
 private val logger = logging()
 
-class DetailViewModel(private val scope: CoroutineScope, private val idNote: Long) {
+// Extendemos de ScreenModel para poder usarlo en la navegación y
+// resista a los cambios de configuración, rotaciones, y recomposiciones
+// ademas ya tiene su propio scope para las corrutinas
+class DetailViewModel(private val idNote: Long) : ScreenModel {
     var state by mutableStateOf(UiState())
         private set
 
@@ -30,7 +33,7 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
     // Carga una nota del servicio
     private fun loadNote() {
         logger.debug { "Cargando nota con id: $idNote" }
-        scope.launch {
+        coroutineScope.launch {
             state = UiState(isLoading = true)
             val note = NotesRepository.getById(idNote)
             state = UiState(note = note, isLoading = false)
@@ -40,7 +43,7 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
     // Guarda una nota en el servicio, o la actualiza
     fun save() {
         logger.debug { "Guardando nota con id: ${state.note.id}" }
-        scope.launch {
+        coroutineScope.launch {
             var note = state.note
             state = state.copy(isLoading = true)
             // salva o actualiza según el id
@@ -62,7 +65,7 @@ class DetailViewModel(private val scope: CoroutineScope, private val idNote: Lon
     // Borra una nota del servicio
     fun delete() {
         logger.debug { "Borrando nota con id: ${state.note.id}" }
-        scope.launch {
+        coroutineScope.launch {
             state = state.copy(isLoading = true)
             NotesRepository.delete(state.note.id)
             state = state.copy(saved = true, isLoading = false)
