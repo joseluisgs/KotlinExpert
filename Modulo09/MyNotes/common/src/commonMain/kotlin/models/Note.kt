@@ -3,7 +3,6 @@ package models
 import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 
-
 // data class Note, ideal como POKO de una nota para nuestra app
 //  // https://github.com/Kotlin/kotlinx-datetime Para experimentar con fechas
 // Type será su clase internal

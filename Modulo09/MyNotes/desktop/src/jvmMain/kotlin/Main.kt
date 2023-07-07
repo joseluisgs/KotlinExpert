@@ -3,13 +3,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import config.AppConfig
+import org.lighthousegames.logging.logging
 import utils.getPlatformName
 import views.app.AppView
 
+private val logger = logging()
 
 // application es una función de alto nivel que nos permite crear una aplicación de escritorio
 // y usar composables
 fun main() = application {
+
+    logger.info { "Init Desktop Client" }
 
     // Icono de la aplicación
     val icon = painterResource("app-icon.png")
@@ -24,7 +29,7 @@ fun main() = application {
     // Crea una ventana
     Window(
         onCloseRequest = ::exitApplication,
-        title = config.AppConfig.APP_NAME + getPlatformName(),
+        title = AppConfig.APP_NAME + getPlatformName(),
         icon = icon
     ) {
         // Carga la vista principal que es el composablee AppView

@@ -2,11 +2,15 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.renderComposable
+import org.lighthousegames.logging.logging
 import views.app.AppView
 import views.theme.AppStyleSheet
 
+private val logger = logging()
 
 fun main() {
+    logger.info { "Init Web Client" }
+
     composeSample()
     kotlinJsSample()
 }

@@ -14,5 +14,10 @@ plugins {
     kotlin("multiplatform") apply false
     id("org.jetbrains.compose") apply false
     kotlin("plugin.serialization") apply false
+    // android compose
+    kotlin("android") apply false
+    id("com.android.application") apply false
+    // Android Commmons
+    id("com.android.library") apply false
 }
 

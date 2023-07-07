@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Configuración de seguridad para el debug  y que deje conectarse a http y no solo a https -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="dev.joseluisgs.android">
+
+    <application
+            android:networkSecurityConfig="@xml/network_security_config"
+            tools:ignore="MissingApplicationIcon,UnusedAttribute"
+            tools:node="merge"/>
+
+</manifest>
