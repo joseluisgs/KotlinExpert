@@ -25,15 +25,15 @@ private val logger = logging()
 
 object NotesRepository {
     // Lo trasformamos en un flujo, esta vez de listas de notas
-    val notesCache = provideNotesCacheClient()
-    val notesApi = provideNotesRestClient()
+    private val notesCache = provideNotesCacheClient()
+    private val notesApi = provideNotesRestClient()
 
     init {
         logger.info { "NotesRepository Init" }
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch {
             // Limpiamos la base de datos
-            rememoveAll()
+            removeAll()
             // Obtenemos las notas de la API
             //fetchNotes()
         }
@@ -60,7 +60,7 @@ object NotesRepository {
 
     }
 
-    private suspend fun rememoveAll() {
+    private fun removeAll() {
         logger.debug { "removeAll" }
         notesCache.invalidateAll()
     }
@@ -79,7 +79,7 @@ object NotesRepository {
     }
 
     // Estudiar lo de cambiar el tipo de retorno a Flow
-    suspend fun getById(id: Long): Note {
+    fun getById(id: Long): Note {
         logger.debug { "getById" }
         // Devolvemos de la cache
         return notesCache.get(id)!!
