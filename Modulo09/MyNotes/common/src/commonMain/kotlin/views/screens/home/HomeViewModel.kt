@@ -5,7 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
+import com.github.michaelbull.result.mapBoth
+import errors.NoteError
 import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import models.Filter
 import models.Note
@@ -30,20 +33,29 @@ class HomeViewModel : ScreenModel {
         loadNotes()
     }
 
-    private fun loadNotes() {
+    fun loadNotes() {
         logger.debug { "Cargando notas" }
         coroutineScope.launch(CoroutineName("Corrutina loadNotes ")) {
             state = UiState(isLoading = true)
 
             // Creo las notas
-            NotesRepository.getAll().collect {
+            /*NotesRepository.getAll().collect {
                 // Actualizamos la interfaz y estado
                 state = state.copy(notes = it, isLoading = false)
-            }
+            }*/
 
             // Otra forma de hacerlo
             //state = state.copy(notes = NotesRepository.getAll().first(), isLoading = false)
 
+            // Con Result
+            NotesRepository.getAll().mapBoth(
+                success = {
+                    state = state.copy(notes = it.first(), isLoading = false, error = null)
+                },
+                failure = {
+                    state = state.copy(error = it, isLoading = false)
+                }
+            )
         }
     }
 
@@ -53,11 +65,18 @@ class HomeViewModel : ScreenModel {
         state = state.copy(filter = filter)
     }
 
+    fun retryAction() {
+        logger.debug { "Reintentando cargar las notas" }
+        // Actualizamos el estado
+        loadNotes()
+    }
+
     // El estado de la vista
     data class UiState(
         val isLoading: Boolean = false,
         val notes: List<Note>? = null,
         val filter: Filter = Filter.All,
+        val error: NoteError? = null
     ) {
         val filterNotes: List<Note>?
             get() = when (filter) {
