@@ -1,5 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
+val logback_version: String by rootProject.project
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
@@ -11,7 +13,7 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     jvm {
-        jvmToolchain(11) // Java 17
+        jvmToolchain(11)
         withJava()
     }
     sourceSets {
@@ -21,6 +23,8 @@ kotlin {
                 implementation(project(":common"))
                 // El especifico de desktop
                 implementation(compose.desktop.currentOs)
+                // Necesito el logger desde el main
+                implementation("ch.qos.logback:logback-classic:$logback_version")
             }
         }
         val jvmTest by getting

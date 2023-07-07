@@ -5,6 +5,7 @@ import models.Note
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 import org.lighthousegames.logging.logging
+import views.common.ErrorMessage
 import views.theme.AppStyleSheet
 
 private val logger = logging()
@@ -31,12 +32,21 @@ actual fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
                 // Loading
                 Text("Cargando...")
             } else {
-                vm.state.filterNotes?.let { notes ->
-                    println("Renderizando NoteList")
-                    NoteList(
-                        notes = notes,
-                        onNoteClick = { onNoteClick(it.id) }
+                vm.state.error?.let { error ->
+                    // Error
+                    ErrorMessage(
+                        message = error.message,
+                        onRetry = vm::loadNotes
                     )
+                } ?: run {
+                    // Note list
+                    vm.state.filterNotes?.let { notes ->
+                        println("Renderizando NoteList")
+                        NoteList(
+                            notes = notes,
+                            onNoteClick = { onNoteClick(it.id) }
+                        )
+                    }
                 }
             }
         }

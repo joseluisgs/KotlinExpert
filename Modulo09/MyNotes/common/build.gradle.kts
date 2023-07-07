@@ -5,6 +5,7 @@ val cache_version: String by rootProject.project
 val logger_version: String by rootProject.project
 val logback_version: String by rootProject.project
 val voyager_version: String by rootProject.project
+val result_version: String by rootProject.project
 
 plugins {
     kotlin("multiplatform")
@@ -65,6 +66,9 @@ kotlin {
 
                 // Voyager para navegación
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyager_version")
+
+                // Result
+                implementation("com.michael-bull.kotlin-result:kotlin-result:$result_version")
 
             }
         }

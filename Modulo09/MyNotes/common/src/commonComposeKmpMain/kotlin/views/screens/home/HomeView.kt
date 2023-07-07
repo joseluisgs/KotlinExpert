@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import models.Note
 import org.lighthousegames.logging.logging
+import views.screens.common.ErrorMessage
 
 // Función composable que recibe un ViewModel
 // y una función lambda para saber como actuar con el clic en base a su id que recibe
@@ -63,6 +64,12 @@ actual fun HomeView(vm: HomeViewModel, onNoteClick: (noteId: Long) -> Unit) {
                         color = MaterialTheme.colors.primary
                     )
                 }
+
+                // Si hay un error, lo pintamos
+                vm.state.error?.let { error ->
+                    ErrorMessage(error.message, vm::loadNotes)
+                }
+
                 // Listas de notas, pero ahora devolvemos las filtradas
                 vm.state.filterNotes?.let { notes ->
                     NotesList(notes, onNoteClick = { onNoteClick(it.id) })

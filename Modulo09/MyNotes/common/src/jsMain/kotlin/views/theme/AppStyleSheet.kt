@@ -14,6 +14,7 @@ object AppStyleSheet : StyleSheet() {
         }
     }
 
+
     // Estilos para HomeView
     val homeView by style {
         display(DisplayStyle.Flex)
@@ -176,6 +177,13 @@ object AppStyleSheet : StyleSheet() {
         maxWidth(600.percent)
         padding(32.px)
         property("margin", "0 auto")
+    }
+
+    val errorMessage by style {
+        color(Color.red)
+        fontSize(0.8.em)
+        fontWeight(400)
+        cursor("pointer")
     }
 
 }

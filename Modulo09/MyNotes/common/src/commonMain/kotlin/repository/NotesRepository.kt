@@ -1,8 +1,12 @@
 package repository
 
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import data.api.NOTES_URL
 import data.api.provideNotesRestClient
 import data.cache.provideNotesCacheClient
+import errors.NoteError
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
@@ -36,17 +40,24 @@ object NotesRepository {
 
     }
 
-    suspend fun fetchNotes() {
+    private suspend fun fetchNotes(): Result<List<Note>, NoteError> {
         logger.debug { "fetchNotes" }
         // Llamamos a la API y obtenemos las notas
-        val response = notesApi.get(NOTES_URL)
-        val notes = response.body<List<Note>>()
+        return try {
+            val response = notesApi.get(NOTES_URL)
+            val notes = response.body<List<Note>>()
 
-        // Actualizamos la base de datos
-        notes.forEach {
-            notesCache.put(it.id, it)
+            // Actualizamos la base de datos
+            notes.forEach {
+                notesCache.put(it.id, it)
+            }
+            logger.debug { "fetchNotes(${notes.size}: $notes" }
+            Ok(notes)
+        } catch (e: Exception) {
+            logger.error { "fetchNotes: ${e.message}" }
+            Err(NoteError.ApiError(e.message ?: "Error al obtener las notas de la API de online"))
         }
-        logger.debug { "fetchNotes(${notes.size}: $notes" }
+
     }
 
     private suspend fun rememoveAll() {
@@ -54,15 +65,17 @@ object NotesRepository {
         notesCache.invalidateAll()
     }
 
-    suspend fun getAll(): Flow<List<Note>> {
+    suspend fun getAll(): Result<Flow<List<Note>>, NoteError> {
         logger.debug { "getAll" }
         // Si no hay notas en la base de datos las obtenemos de la API
-        if (notesCache.asMap().isEmpty()) {
-            fetchNotes()
+        if (notesCache.asMap().isNotEmpty()) {
+            return Ok(flowOf(notesCache.asMap().values.toList()))
         }
         // Emitimos el flujo
-        return flowOf(notesCache.asMap().values.toList())
-
+        return when (val result = fetchNotes()) {
+            is Ok -> Ok(flowOf(result.value))
+            is Err -> Err(result.error)
+        }
     }
 
     // Estudiar lo de cambiar el tipo de retorno a Flow
